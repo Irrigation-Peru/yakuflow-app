@@ -41,8 +41,10 @@ the root of this repository.
 ## Licenses
 
 - Code: MIT (`LICENSE`).
-- Data and results in `entrenamiento/data` and `entrenamiento/resultados`: CC BY 4.0 (`LICENSE-DATA.md`), with
-  the attributions listed there.
+- Crop dataset (`entrenamiento/data/ena2024_sitio_cultivo.csv` and `entrenamiento/data/piloto`): ODbL 1.0.
+- Generated networks and results: CC BY 4.0.
+
+Details and attributions are in `LICENSE-DATA.md`.
 
 ## How to cite
 
