@@ -16,3 +16,6 @@
 *.xlsx binary
 *.docx binary
 *.mpp  binary
+
+# Datos y scripts de entrenamiento tal como están en crop-ml (la huella sha256 de los datos depende de los bytes)
+entrenamiento/** -text
