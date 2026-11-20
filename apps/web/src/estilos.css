@@ -1,0 +1,2974 @@
+/* Sistema de diseño de YAKUFLOW: software de ingeniería, sobrio y en blanco y negro. La tinta (negra en el tema claro,
+   blanca en el oscuro) marca la estructura y la acción principal; el verde, lo que cumple o se descarga; el rojo, lo
+   que se borra o falla. El resto en grises neutros. El color se reserva para lo que pide atención.
+
+   Dos temas con los mismos nombres de variables: el claro va en :root y el oscuro en [data-tema='oscuro'], que pone
+   public/tema.js antes de pintar según lo que eligió el estudiante o, si no eligió, según su sistema. Referencias
+   del diseño en apps/web/diseno/. */
+
+/* El tema claro. También lo llevan las láminas (gráficos, mapa, 3D): sus dibujos usan colores pensados sobre papel
+   claro, así que en el tema oscuro se muestran como una hoja clara sobre la mesa oscura. */
+:root,
+.figura,
+.vista-con-titulo,
+.leaflet-container {
+  color-scheme: light;
+
+  /* ---- Color: la tinta y la superficie ---- */
+  --azul-profundo: #141414;
+  --azul-profundo-hover: #2e2e2e;
+  /* Texto sobre la tinta: los botones principales, el avatar y los indicadores llenos. */
+  --sobre-primario: #ffffff;
+  --azul-tecnico: #141414;
+  --azul-tecnico-suave: #ededed;
+  --verde: #0b9668;
+  --verde-hover: #087a55;
+  --verde-suave: #e3f4ec;
+  --rojo: #e3153f;
+  --rojo-hover: #c20f34;
+  --fondo-app: #e4e4e4;
+  --superficie: #ffffff;
+  --superficie-hundida: #f7f7f7;
+  /* El panel que agrupa el contenido de la pantalla, entre el fondo y las tarjetas. */
+  --superficie-panel: #fafafa;
+  /* El botón secundario fuerte («Continuar»): negro en el tema claro, gris en el oscuro. */
+  --boton-fuerte: #141414;
+  --boton-fuerte-hover: #2e2e2e;
+  --boton-fuerte-borde: #141414;
+  --boton-fuerte-texto: #ffffff;
+
+  /* ---- Grises neutros ---- */
+  --texto: #141414;
+  --texto-secundario: #4a4a4a;
+  --texto-tenue: #5e5e5e;
+  --borde: #d6d6d6;
+  --borde-suave: #e6e6e6;
+  /* Borde de campos y controles: más de 3:1 sobre blanco, el mínimo de WCAG 1.4.11 para reconocer un control. */
+  --borde-control: #8a8a8a;
+
+  /* ---- Semánticos: fondo claro para la superficie, tono fuerte para el texto y el borde ---- */
+  --exito: #0b7d57;
+  --exito-fondo: #e3f4ec;
+  --advertencia: #a35c00;
+  --advertencia-fondo: #fff4e0;
+  --advertencia-texto: #78350f;
+  --error: #c20f34;
+  --error-fondo: #fdecef;
+  --info: #3a3a3a;
+  --info-fondo: #efefef;
+
+  /* ---- Sombras ---- */
+  --sombra-1: 0 1px 2px rgb(0 0 0 / 0.06);
+  --sombra-2: 0 1px 3px rgb(0 0 0 / 0.06), 0 6px 16px rgb(0 0 0 / 0.07);
+  --sombra-tarjeta: 0 1px 2px rgb(0 0 0 / 0.08), 0 3px 8px rgb(0 0 0 / 0.06);
+  --sombra-menu: 0 8px 28px rgb(0 0 0 / 0.18);
+}
+
+/* El tema oscuro. El encabezado lo lleva siempre: es la barra negra de las dos versiones del diseño. */
+:root[data-tema='oscuro'],
+.encabezado {
+  color-scheme: dark;
+
+  --azul-profundo: #f2f2f2;
+  --azul-profundo-hover: #d9d9d9;
+  --sobre-primario: #141414;
+  --azul-tecnico: #f2f2f2;
+  --azul-tecnico-suave: #333333;
+  --verde: #0b9668;
+  --verde-hover: #0aa673;
+  --verde-suave: #12352a;
+  --rojo: #e3153f;
+  --rojo-hover: #f02d55;
+  --fondo-app: #181818;
+  --superficie: #262626;
+  --superficie-hundida: #202020;
+  --superficie-panel: #222222;
+  --boton-fuerte: #4d4d4d;
+  --boton-fuerte-hover: #5c5c5c;
+  --boton-fuerte-borde: #6e6e6e;
+  --boton-fuerte-texto: #ffffff;
+
+  --texto: #f2f2f2;
+  --texto-secundario: #bdbdbd;
+  --texto-tenue: #a6a6a6;
+  --borde: #3d3d3d;
+  --borde-suave: #333333;
+  --borde-control: #7a7a7a;
+
+  --exito: #3ccf9a;
+  --exito-fondo: #12352a;
+  --advertencia: #f0a83a;
+  --advertencia-fondo: #3a2a10;
+  --advertencia-texto: #f7cf8f;
+  --error: #ff6b86;
+  --error-fondo: #3d1520;
+  --info: #d0d0d0;
+  --info-fondo: #2e2e2e;
+
+  --sombra-1: 0 1px 2px rgb(0 0 0 / 0.4);
+  --sombra-2: 0 1px 3px rgb(0 0 0 / 0.4), 0 6px 16px rgb(0 0 0 / 0.35);
+  --sombra-tarjeta: 0 1px 2px rgb(0 0 0 / 0.35), 0 3px 8px rgb(0 0 0 / 0.25);
+  --sombra-menu: 0 8px 28px rgb(0 0 0 / 0.55);
+}
+
+/* El encabezado es negro en los dos temas, un poco más oscuro que el fondo. */
+.encabezado {
+  --superficie: #0b0b0b;
+  --superficie-hundida: #1f1f1f;
+  --borde: #2a2a2a;
+  color: var(--texto);
+}
+
+/* Nombres de antes, apuntando al sistema: el resto de la app los hereda sin cambiar. Se declaran otra vez en cada
+   elemento que cambia de tema, porque una variable que usa var() se resuelve donde se declara. */
+:root,
+.figura,
+.vista-con-titulo,
+.leaflet-container,
+.encabezado {
+  --tinta: var(--texto);
+  --tinta-suave: var(--texto-secundario);
+  --gris: var(--texto-tenue);
+  --linea: var(--borde);
+  --linea-suave: var(--borde-suave);
+  --borde-campo: var(--borde-control);
+  /* El agua: nivel, conducción y foco del teclado. */
+  --agua: var(--azul-tecnico);
+  --fondo: var(--superficie);
+  --fondo-suave: var(--superficie-hundida);
+  --alerta: var(--advertencia);
+  --alerta-fondo: var(--advertencia-fondo);
+}
+
+/* Las figuras siguen el texto de su tema: en el oscuro, letra oscura sobre la hoja clara. */
+.figura,
+.vista-con-titulo {
+  color: var(--texto);
+}
+
+:root {
+  /* ---- Tipografía: Inter para la interfaz y JetBrains Mono para coordenadas, cotas y códigos. Si no están
+     instaladas, el sistema pone las suyas: la app no descarga fuentes. ---- */
+  --letra: 'Inter', 'Inter Variable', system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, 'Cascadia Mono', 'SFMono-Regular', Menlo, Consolas, monospace;
+  /* Escala modular de razón 1,2: cinco tamaños para todo. */
+  --t-1: 0.8rem;
+  --t-2: 0.9rem;
+  --t-3: 1rem;
+  --t-4: 1.2rem;
+  --t-5: 1.44rem;
+
+  /* ---- Espacio, en pasos de 4 px ---- */
+  --e-1: 0.25rem;
+  --e-2: 0.5rem;
+  --e-3: 0.75rem;
+  --e-4: 1rem;
+  --e-5: 1.5rem;
+  --e-6: 2rem;
+
+  /* ---- Radios, sombras y movimiento ---- */
+  --radio-1: 4px;
+  --radio-2: 6px;
+  --radio-3: 10px;
+  --radio-pildora: 999px;
+  --transicion: 140ms ease-out;
+
+  /* ---- Medidas de la estructura ---- */
+  --alto-encabezado: 3.5rem;
+  --alto-etapas: 3.5rem;
+  --ancho-menu: 15.5rem;
+  --ancho-menu-contraido: 3.75rem;
+
+  color: var(--texto);
+  background: var(--fondo-app);
+  font-family: var(--letra);
+  font-size: 16px;
+  line-height: 1.5;
+  font-feature-settings: 'cv11', 'ss01';
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  /* Lo que se enfoca o se salta con un enlace no queda tapado por el encabezado y la barra de etapas, que son fijos. */
+  scroll-padding-top: calc(var(--alto-encabezado) + var(--alto-etapas) + 0.5rem);
+}
+
+body {
+  margin: 0;
+  background: var(--fondo-app);
+}
+
+h2 {
+  font-size: var(--t-5);
+  font-weight: 600;
+  margin: 1.25rem 0 0.75rem;
+}
+
+h3 {
+  margin: 1.25rem 0 0.5rem;
+}
+
+button,
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  border: 1px solid var(--borde-control);
+  border-radius: var(--radio-2);
+  background: var(--superficie);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color var(--transicion), border-color var(--transicion), color var(--transicion);
+}
+
+button:hover:not(:disabled) {
+  background: var(--superficie-hundida);
+  border-color: var(--texto-secundario);
+}
+
+button.primario {
+  background: var(--azul-profundo);
+  border-color: var(--azul-profundo);
+  color: var(--sobre-primario);
+  font-weight: 600;
+}
+
+button.primario:hover:not(:disabled) {
+  background: var(--azul-profundo-hover);
+  border-color: var(--azul-profundo-hover);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+button[aria-pressed='true'],
+button[aria-pressed='true']:hover:not(:disabled) {
+  background: var(--azul-profundo);
+  border-color: var(--azul-profundo);
+  color: var(--sobre-primario);
+}
+
+:focus-visible {
+  outline: 2px solid var(--azul-tecnico);
+  outline-offset: 2px;
+}
+
+input,
+select {
+  width: 100%;
+  border: 1px solid var(--borde-control);
+  border-radius: var(--radio-2);
+  padding: 0.55rem 0.7rem;
+  background: var(--superficie);
+  transition: border-color var(--transicion);
+}
+
+input:hover:not(:disabled),
+select:hover:not(:disabled) {
+  border-color: var(--texto-secundario);
+}
+
+input:disabled,
+select:disabled {
+  background: var(--superficie-hundida);
+  color: var(--texto-tenue);
+}
+
+input[type='checkbox'],
+input[type='radio'] {
+  width: auto;
+  accent-color: var(--tinta);
+}
+
+/* ---------- Estructura: encabezado, etapas, menú lateral y área de trabajo ---------- */
+
+.marco {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+}
+
+.cuerpo {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  min-width: 0;
+}
+
+/* Sin proyecto abierto no hay menú lateral: el área de trabajo toma todo el ancho, no el de su contenido. */
+.marco:not(.con-menu) .cuerpo {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* El área de trabajo: una sola superficie blanca sobre el fondo de la app; lo de adentro conserva su diseño. */
+.contenido {
+  min-width: 0;
+  width: calc(100% - 2 * var(--e-4));
+  max-width: 110rem;
+  margin: var(--e-4) auto;
+  padding: var(--e-4) var(--e-5) 3rem;
+  background: var(--superficie-panel);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio-3);
+  box-shadow: var(--sombra-1);
+}
+
+.marco:not(.con-menu) .contenido {
+  width: calc(100% - 2 * var(--e-4));
+  max-width: 80rem;
+  margin: var(--e-5) auto;
+}
+
+.marco:not(.con-menu) .contenido.angosto {
+  max-width: 62rem;
+}
+
+/* ---- Encabezado ---- */
+
+/* El encabezado y la barra de etapas quedan fijos arriba al bajar por el paso: siempre se sabe dónde se está. Van
+   por encima de los controles del mapa (Leaflet los pone en 1000). */
+.encabezado {
+  position: sticky;
+  top: 0;
+  z-index: 1100;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--e-5);
+  height: var(--alto-encabezado);
+  padding: 0 var(--e-5) 0 var(--e-4);
+  background: var(--superficie);
+  border-bottom: 1px solid var(--borde);
+}
+
+.encabezado-marca {
+  display: flex;
+  align-items: center;
+  gap: var(--e-3);
+  white-space: nowrap;
+}
+
+.logo {
+  display: grid;
+  place-items: center;
+  width: 2.125rem;
+  height: 2.125rem;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #141414;
+}
+
+.marca-texto {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.marca-nombre {
+  display: flex;
+  align-items: center;
+  gap: var(--e-2);
+  font-size: 1.05rem;
+  font-weight: 700;
+  /* El nombre va en mayúsculas: un poco de aire entre letras para que se lea de un vistazo. */
+  letter-spacing: 0.04em;
+  color: var(--azul-profundo);
+}
+
+.marca-institucion {
+  margin-top: 0.15rem;
+  font-size: 0.72rem;
+  color: var(--texto-tenue);
+}
+
+.encabezado-centro {
+  display: flex;
+  min-width: 0;
+}
+
+.encabezado-titulo {
+  margin: 0;
+  font-weight: 600;
+  color: var(--azul-profundo);
+}
+
+.ficha-del-proyecto {
+  display: flex;
+  align-items: center;
+  gap: var(--e-3);
+  min-width: 0;
+  max-width: 100%;
+  padding: 0.3rem var(--e-3);
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  background: var(--superficie-hundida);
+}
+
+.ficha-nombre {
+  overflow: hidden;
+  margin: 0;
+  max-width: 20rem;
+  font-size: var(--t-2);
+  font-weight: 600;
+  color: var(--azul-profundo);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.ficha-datos {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ficha-datos li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0 var(--e-3);
+  border-left: 1px solid var(--borde);
+  color: var(--texto-secundario);
+  white-space: nowrap;
+}
+
+.ficha-datos li svg {
+  flex: none;
+  color: var(--texto-tenue);
+}
+
+.ficha-sin-lugar {
+  margin: 0;
+  font-size: var(--t-1);
+  color: var(--texto-tenue);
+}
+
+/* Cifras técnicas: coordenadas, cotas, áreas. Monoespaciadas y con dígitos de igual ancho. */
+.dato-tecnico {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.encabezado-derecha {
+  display: flex;
+  align-items: center;
+  gap: var(--e-3);
+}
+
+.usuario {
+  position: relative;
+}
+
+.usuario summary {
+  display: flex;
+  align-items: center;
+  gap: var(--e-2);
+  padding: 0.2rem 0.2rem 0.2rem var(--e-3);
+  border-radius: var(--radio-pildora);
+  list-style: none;
+  cursor: pointer;
+  transition: background-color var(--transicion);
+}
+
+.usuario summary::-webkit-details-marker {
+  display: none;
+}
+
+.usuario summary:hover,
+.usuario[open] summary {
+  background: var(--superficie-hundida);
+}
+
+.usuario-nombre {
+  overflow: hidden;
+  max-width: 11rem;
+  font-size: var(--t-2);
+  color: var(--texto-secundario);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--azul-profundo);
+  color: var(--sobre-primario);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.usuario-opciones {
+  position: absolute;
+  top: calc(100% + 0.4rem);
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  min-width: 16rem;
+  padding: 0.35rem;
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio-3);
+  box-shadow: var(--sombra-menu);
+}
+
+.usuario-opciones button {
+  border: 0;
+  border-radius: var(--radio-2);
+  padding: 0.5rem var(--e-3);
+  text-align: left;
+}
+
+.usuario-quien {
+  margin: 0 0 0.3rem;
+  padding: 0.45rem var(--e-3) 0.6rem;
+  border-bottom: 1px solid var(--borde-suave);
+  font-weight: 600;
+}
+
+.usuario-quien span {
+  display: block;
+  font-size: var(--t-1);
+  font-weight: 400;
+  color: var(--texto-tenue);
+}
+
+/* ---- Barra de etapas ---- */
+
+.etapas {
+  /* El tramo de tubería entre dos etapas: largo y aire a cada lado. */
+  --tramo: 1.1rem;
+  --tramo-margen: 0.15rem;
+  position: sticky;
+  top: var(--alto-encabezado);
+  z-index: 1090;
+  padding: 0 var(--e-4);
+  background: var(--superficie);
+  border-bottom: 1px solid var(--borde);
+}
+
+/* Los pasos van abajo, en una línea; el nombre de cada disciplina, encima de los suyos. */
+.etapas-lista > ol {
+  display: flex;
+  align-items: flex-end;
+  height: var(--alto-etapas);
+  margin: 0;
+  padding: 0 0 0.35rem;
+  overflow-x: auto;
+  list-style: none;
+  scrollbar-width: thin;
+}
+
+.etapa {
+  display: flex;
+  flex: none;
+  align-items: center;
+}
+
+/* El conector entre dos etapas: gris, y verde hasta donde llegó el proyecto. */
+.etapa.con-tramo::before {
+  content: '';
+  width: var(--tramo);
+  height: 2px;
+  margin: 0 var(--tramo-margen);
+  border-radius: 1px;
+  background: var(--borde);
+}
+
+.etapa.tramo-lleno::before {
+  background: color-mix(in srgb, var(--verde) 55%, transparent);
+}
+
+/* Cada disciplina, con el mismo rótulo que en el menú lateral. El nombre empieza sobre el primer paso del grupo (pasado
+   el tramo que llega de la disciplina anterior) y una línea fina marca hasta dónde llega el grupo. */
+.disciplina {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+}
+
+.disciplina-nombre {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  /* A la derecha deja un poco de aire: la línea de un grupo no se junta con el nombre del siguiente. */
+  margin: 0 0.4rem 0.1rem calc(var(--tramo) + 2 * var(--tramo-margen) + 0.3rem);
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  color: var(--texto-tenue);
+  white-space: nowrap;
+}
+
+.disciplina-nombre::after {
+  content: '';
+  flex: 1;
+  min-width: 0.75rem;
+  height: 1px;
+  background: var(--borde);
+}
+
+.disciplina > ol {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.etapa button,
+.etapa-fija {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 2rem;
+  padding: 0.25rem 0.6rem 0.25rem 0.3rem;
+  border: 0;
+  border-radius: var(--radio-pildora);
+  background: none;
+  font-size: 0.82rem;
+  color: var(--texto-tenue);
+  white-space: nowrap;
+}
+
+.etapa button:hover:not(:disabled) {
+  background: var(--superficie-hundida);
+  color: var(--texto);
+}
+
+.etapa.hecha button,
+.etapa.hecha .etapa-fija {
+  color: var(--texto-secundario);
+}
+
+.etapa.actual .etapa-fija {
+  background: var(--azul-tecnico-suave);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--azul-tecnico) 30%, transparent);
+  color: var(--azul-profundo);
+  font-weight: 600;
+}
+
+.indicador {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 1.5px solid var(--borde-control);
+  border-radius: 50%;
+  background: var(--superficie);
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--texto-tenue);
+}
+
+.indicador.hecha {
+  border-color: var(--verde);
+  background: var(--verde);
+  color: #fff;
+}
+
+.indicador.actual {
+  border-color: var(--azul-tecnico);
+  background: var(--azul-tecnico);
+  color: var(--sobre-primario);
+}
+
+.indicador.por-revisar {
+  border-color: var(--advertencia);
+  background: var(--advertencia);
+  font-family: var(--letra);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.etapas-movil {
+  display: none;
+}
+
+/* ---- Menú lateral ---- */
+
+.menu-lateral {
+  position: sticky;
+  top: calc(var(--alto-encabezado) + var(--alto-etapas) + 1px);
+  display: flex;
+  flex-direction: column;
+  width: var(--ancho-menu);
+  height: calc(100vh - var(--alto-encabezado) - var(--alto-etapas) - 1px);
+  padding: var(--e-3) var(--e-2);
+  overflow-y: auto;
+  background: var(--superficie);
+  border-right: 1px solid var(--borde);
+  transition: width var(--transicion);
+}
+
+.menu-lateral-cabeza {
+  display: flex;
+  align-items: center;
+  gap: var(--e-1);
+  margin-bottom: var(--e-3);
+  padding-bottom: var(--e-3);
+  border-bottom: 1px solid var(--borde-suave);
+}
+
+.menu-lateral-cabeza .menu-item {
+  flex: 1;
+  min-width: 0;
+}
+
+.menu-contraer {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radio-2);
+  background: none;
+  color: var(--texto-tenue);
+}
+
+.menu-contraer:hover:not(:disabled) {
+  background: var(--superficie-hundida);
+  color: var(--texto);
+}
+
+.menu-grupo + .menu-grupo {
+  margin-top: var(--e-4);
+}
+
+.menu-grupo-titulo {
+  margin: 0 0 var(--e-1) 0.6rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--texto-tenue);
+}
+
+.menu-grupo ul {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.menu-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  width: 100%;
+  min-height: 2.25rem;
+  padding: 0.4rem 0.6rem;
+  border: 0;
+  border-radius: var(--radio-2);
+  background: none;
+  font-size: 0.875rem;
+  text-align: left;
+  color: var(--texto-secundario);
+}
+
+.menu-item svg {
+  flex: none;
+  color: var(--texto-tenue);
+}
+
+button.menu-item:hover:not(:disabled) {
+  background: var(--superficie-hundida);
+  color: var(--texto);
+}
+
+button.menu-item:hover:not(:disabled) svg {
+  color: var(--texto-secundario);
+}
+
+.menu-item.hecha svg {
+  color: var(--verde);
+}
+
+.menu-item.actual {
+  background: var(--azul-tecnico-suave);
+  color: var(--azul-profundo);
+  font-weight: 600;
+}
+
+.menu-item.actual svg {
+  color: var(--azul-tecnico);
+}
+
+/* La marca de la etapa abierta: una barra fina a la izquierda, como en los paneles de un software CAD. */
+.menu-item.actual::before {
+  content: '';
+  position: absolute;
+  top: 0.45rem;
+  bottom: 0.45rem;
+  left: 0;
+  width: 3px;
+  border-radius: 0 2px 2px 0;
+  background: var(--azul-tecnico);
+}
+
+.menu-item.pendiente {
+  color: color-mix(in srgb, var(--texto-tenue) 75%, var(--superficie));
+  cursor: default;
+}
+
+.menu-item.pendiente svg {
+  color: color-mix(in srgb, var(--texto-tenue) 60%, var(--superficie));
+}
+
+.menu-item-texto {
+  display: flex;
+  flex: 1;
+  gap: 0.45rem;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.menu-item-numero {
+  flex: none;
+  width: 0.7rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  line-height: 1.6;
+  color: var(--texto-tenue);
+}
+
+.menu-item-aviso {
+  flex: none;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: var(--advertencia);
+}
+
+.menu-lateral.contraido {
+  width: var(--ancho-menu-contraido);
+}
+
+.menu-lateral.contraido .menu-lateral-cabeza {
+  flex-direction: column;
+}
+
+.menu-lateral.contraido .menu-item {
+  justify-content: center;
+  padding: 0.4rem;
+}
+
+.menu-lateral.contraido .menu-item-texto {
+  display: none;
+}
+
+.menu-lateral.contraido .menu-item-aviso {
+  position: absolute;
+  top: 0.35rem;
+  right: 0.35rem;
+}
+
+/* Contraído, el título de cada disciplina se vuelve una línea que separa los grupos. */
+.menu-lateral.contraido .menu-grupo-titulo {
+  height: 1px;
+  margin: 0 0.4rem var(--e-2);
+  overflow: hidden;
+  background: var(--borde);
+  color: transparent;
+}
+
+.clima-del-lugar {
+  margin-top: auto;
+  padding: var(--e-3);
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  background: var(--superficie-hundida);
+  font-size: var(--t-1);
+}
+
+.clima-del-lugar h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0 0 var(--e-2);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--azul-profundo);
+}
+
+.clima-del-lugar dl {
+  display: grid;
+  gap: 0.3rem;
+  margin: 0;
+}
+
+.clima-del-lugar dl div {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--e-2);
+}
+
+.clima-del-lugar dt {
+  color: var(--texto-tenue);
+}
+
+.clima-del-lugar dd {
+  margin: 0;
+  color: var(--texto);
+  white-space: nowrap;
+}
+
+.clima-sin-datos {
+  margin: 0;
+  color: var(--texto-tenue);
+}
+
+/* ---- Pantallas medianas y chicas ---- */
+
+@media (max-width: 1280px) {
+  .marca-institucion,
+  .usuario-nombre {
+    display: none;
+  }
+}
+
+@media (max-width: 1100px) {
+  .ficha-datos li:first-child {
+    display: none;
+  }
+
+  .ficha-datos li:nth-child(2) {
+    border-left: 1px solid var(--borde);
+  }
+}
+
+/* En tableta y celular, el menú lateral y la barra de etapas se cambian por el selector de pasos. */
+@media (max-width: 960px) {
+  .cuerpo {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .menu-lateral {
+    display: none;
+  }
+
+  .etapas-lista {
+    display: none;
+  }
+
+  .etapas-movil {
+    display: block;
+    padding: var(--e-2) 0;
+  }
+
+  .etapas-movil select {
+    padding: 0.45rem 0.6rem;
+    font-size: var(--t-2);
+  }
+
+  .encabezado {
+    gap: var(--e-3);
+    padding: 0 var(--e-4);
+  }
+
+  .ficha-datos {
+    display: none;
+  }
+
+  .contenido,
+  .marco:not(.con-menu) .contenido {
+    width: auto;
+    margin: var(--e-2);
+    padding: var(--e-4) var(--e-4) 3rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .ficha-del-proyecto {
+    padding: 0.25rem var(--e-2);
+  }
+}
+
+.angosto {
+  max-width: 62rem;
+  margin: 0 auto;
+}
+
+/* ---------- Formularios ---------- */
+
+.campos {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.campos.dos {
+  grid-template-columns: 1fr 1fr;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.campo-etiqueta {
+  font-size: var(--t-2);
+  color: var(--tinta-suave);
+}
+
+.opciones {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.2rem;
+}
+
+.opciones legend {
+  margin-bottom: 0.3rem;
+}
+
+.casilla {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0.9rem 0;
+}
+
+.acciones {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+
+.acciones.izquierda {
+  justify-content: flex-start;
+}
+
+.error {
+  color: var(--error);
+  font-size: var(--t-2);
+}
+
+.cargando {
+  padding: 2rem;
+  color: var(--gris);
+  text-align: center;
+}
+
+/* Un paso que no se pudo abrir: qué pasó y dos salidas. */
+.estado-de-error {
+  max-width: 40rem;
+  margin: 2rem auto;
+  padding: 1rem 1.25rem;
+  border: 2px solid var(--error);
+}
+
+.estado-de-error p {
+  margin: 0 0 0.5rem;
+}
+
+.pestanas {
+  display: flex;
+  gap: 0;
+  margin-top: 1rem;
+  border-bottom: 1px solid var(--linea);
+}
+
+.pestanas button {
+  border: 0;
+  border-bottom: 3px solid transparent;
+  background: none;
+  color: var(--gris);
+}
+
+.pestanas button[aria-selected='true'] {
+  border-bottom-color: var(--tinta);
+  color: var(--tinta);
+  font-weight: 600;
+}
+
+.consentimiento {
+  border: 1px solid var(--linea);
+  padding: 0.5rem 1.25rem;
+  max-height: 18rem;
+  overflow-y: auto;
+  font-size: var(--t-2);
+  color: var(--tinta-suave);
+}
+
+/* ---------- Rótulos, datos y notas ---------- */
+
+.rotulo {
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  font-size: var(--t-1);
+  color: var(--gris);
+  font-weight: 500;
+}
+
+h3.rotulo {
+  color: var(--tinta);
+  font-weight: 700;
+  font-size: var(--t-2);
+}
+
+.entre {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.datos {
+  margin: 0;
+}
+
+.dato {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.45rem 0;
+  border-bottom: 1px dotted var(--linea);
+}
+
+.dato dt {
+  color: var(--tinta-suave);
+}
+
+.dato .ayuda {
+  display: block;
+  font-size: var(--t-1);
+  color: var(--gris);
+}
+
+.dato dd {
+  margin: 0;
+  font-family: var(--mono);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.nota {
+  font-size: var(--t-2);
+  color: var(--gris);
+  margin: 0.5rem 0;
+}
+
+/* La cuenta de demostración, solo en desarrollo: punteada para que no se confunda con la aplicación. */
+.demo {
+  border: 1px dashed var(--alerta);
+  background: var(--alerta-fondo);
+  padding: 0.75rem 1rem;
+  margin-top: 1rem;
+  font-size: var(--t-2);
+}
+
+.demo p {
+  margin: 0 0 0.5rem;
+}
+
+.demo dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.15rem 1rem;
+  margin: 0 0 0.75rem;
+}
+
+.demo dt {
+  color: var(--gris);
+}
+
+.demo dd {
+  margin: 0;
+  font-family: var(--mono);
+  overflow-wrap: anywhere;
+}
+
+.aviso {
+  font-size: var(--t-2);
+  background: var(--fondo-suave);
+  border-left: 3px solid var(--tinta);
+  padding: 0.5rem 0.75rem;
+}
+
+.alerta {
+  font-size: var(--t-2);
+  background: var(--alerta-fondo);
+  border-left: 3px solid var(--alerta);
+  padding: 0.5rem 0.75rem;
+  color: var(--advertencia-texto);
+}
+
+.vacio {
+  color: var(--gris);
+  padding: 2rem 0;
+}
+
+/* ---------- Prueba ---------- */
+
+.progreso {
+  height: 4px;
+  background: var(--linea-suave);
+  margin: 0.75rem 0 0.5rem;
+}
+
+.progreso > div {
+  height: 100%;
+  background: var(--tinta);
+  transition: width 0.2s;
+}
+
+.item {
+  border: 1px solid var(--linea);
+  padding: 1.25rem;
+  margin: 0.5rem 0 0;
+}
+
+.item legend {
+  float: left;
+  width: 100%;
+  font-size: var(--t-3);
+  margin-bottom: 1rem;
+}
+
+.alternativa {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  border: 1px solid var(--linea);
+  padding: 0.7rem 1rem;
+  margin-top: 0.5rem;
+  cursor: pointer;
+}
+
+.alternativa:has(input:checked) {
+  border: 2px solid var(--tinta);
+  padding: calc(0.7rem - 1px) calc(1rem - 1px);
+}
+
+/* ---------- Proyectos ---------- */
+
+.tarjetas {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(22rem, 100%), 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.tarjeta {
+  border: 1px solid var(--linea);
+  padding: 1rem 1.25rem;
+  margin-top: 1rem;
+}
+
+.tarjetas .tarjeta {
+  margin-top: 0;
+}
+
+.tarjeta h3 {
+  margin: 0;
+}
+
+/* ---------- Paso 1 ---------- */
+
+.titulo-del-paso {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 2px solid var(--tinta);
+  margin-bottom: 1rem;
+}
+
+.titulo-del-paso h2 {
+  margin: 0.5rem 0;
+}
+
+.titulo-del-paso h2 .rotulo {
+  font-size: var(--t-3);
+  color: var(--tinta);
+  font-weight: 700;
+  margin-right: 0.4rem;
+}
+
+.paso1 {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 24rem;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* El panel del paso 1 es largo: el mapa (o el 3D) se queda a la vista mientras se baja por él. */
+@media (min-width: 901px) {
+  .paso1 > .lienzo {
+    position: sticky;
+    top: calc(var(--alto-encabezado) + var(--alto-etapas) + 1rem);
+  }
+}
+
+.herramientas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.indicacion {
+  min-height: 1.5rem;
+  margin: 0.5rem 0;
+  color: var(--tinta-suave);
+}
+
+.mapa {
+  height: min(68vh, 640px);
+  border: 1px solid var(--linea);
+}
+
+.coordenadas {
+  margin: 0 0 0.5rem;
+}
+
+.coordenadas form {
+  padding: 0.75rem 0 0.25rem;
+}
+
+.mapa.marcando {
+  cursor: crosshair;
+}
+
+.mapa.marcando .leaflet-interactive {
+  cursor: pointer;
+}
+
+.origen {
+  margin-top: 0.4rem;
+}
+
+/* Zonas para ubicar la fuente: la leyenda bajo el mapa y la lectura que sigue al cursor. */
+.leyenda {
+  margin-top: 0.75rem;
+  font-size: var(--t-2);
+}
+
+.leyenda-titulo {
+  margin: 0 0 0.4rem;
+  color: var(--tinta-suave);
+}
+
+.leyenda ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.3rem;
+}
+
+.leyenda li {
+  display: flex;
+  gap: 0.5rem;
+  align-items: baseline;
+}
+
+.muestra {
+  flex: none;
+  display: inline-block;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 2px;
+  box-shadow: inset 0 0 0 1px rgba(17, 24, 39, 0.25);
+  transform: translateY(0.1rem);
+}
+
+.lectura-del-cursor {
+  position: absolute;
+  z-index: 1000;
+  transform: translateY(-50%);
+  pointer-events: none;
+  display: grid;
+  gap: 0.1rem;
+  padding: 0.35rem 0.55rem;
+  background: var(--fondo);
+  border: 1px solid var(--linea);
+  border-radius: 3px;
+  box-shadow: 0 1px 3px rgba(17, 24, 39, 0.15);
+  font-size: var(--t-1);
+  white-space: nowrap;
+}
+
+.lectura-zona {
+  display: flex;
+  gap: 0.35rem;
+  align-items: baseline;
+  font-weight: 600;
+}
+
+.lectura-cifras {
+  font-family: var(--mono);
+  color: var(--tinta-suave);
+}
+
+.conduccion-resumen {
+  font-size: var(--t-2);
+  margin: 0.5rem 0;
+}
+
+/* El cierre del paso: qué quedó hecho y a dónde se sigue, como en el wireframe. */
+.cierre {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--tinta);
+  font-size: var(--t-2);
+}
+
+.cierre p {
+  margin: 0;
+}
+
+.camaras {
+  margin: 0;
+  padding-left: 1.1rem;
+  font-family: var(--mono);
+  font-size: var(--t-1);
+  color: var(--tinta-suave);
+}
+
+.rotulo-del-mapa {
+  font-family: var(--mono);
+  font-size: var(--t-1);
+}
+
+.panel {
+  border-left: 1px solid var(--linea);
+  padding-left: 1.5rem;
+}
+
+.panel h3.rotulo:first-child {
+  margin-top: 0;
+}
+
+.perfil {
+  margin: 0.75rem 0 0;
+}
+
+@media (max-width: 900px) {
+  .paso1 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .panel {
+    border-left: 0;
+    padding-left: 0;
+  }
+
+  .campos.dos {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+/* Diálogo de confirmación: para lo que no se deshace fácil. */
+dialog.confirmacion {
+  border: 2px solid var(--tinta);
+  padding: 1.25rem 1.5rem;
+  max-width: min(32rem, calc(100vw - 2rem));
+  color: var(--tinta);
+}
+
+dialog.confirmacion::backdrop {
+  background: rgba(17, 24, 39, 0.45);
+}
+
+dialog.confirmacion h2 {
+  margin-top: 0;
+}
+
+.solo-lectores {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+button.enlace {
+  border: 0;
+  background: none;
+  padding: 0;
+  text-decoration: underline;
+  color: var(--tinta);
+}
+
+/* ---------- Pasos con un lienzo y un panel ---------- */
+
+.paso-con-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 26rem;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.lienzo > .entre h3 {
+  margin: 0.25rem 0 0.75rem;
+}
+
+.cifra {
+  font-family: var(--mono);
+  font-weight: 600;
+}
+
+.campos.tres {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 1rem;
+}
+
+.campos.dos + .campos,
+.campos.tres + .campos {
+  margin-top: 0.9rem;
+}
+
+.tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--t-2);
+  margin: 0.5rem 0;
+}
+
+.tabla th,
+.tabla td {
+  text-align: left;
+  padding: 0.35rem 0.5rem 0.35rem 0;
+  border-bottom: 1px dotted var(--linea);
+  vertical-align: top;
+}
+
+.tabla thead th {
+  color: var(--gris);
+  font-weight: 500;
+  border-bottom: 1px solid var(--linea);
+}
+
+.tabla tbody th {
+  font-weight: 500;
+}
+
+/* Una cifra no se parte entre el número y su unidad. */
+.tabla td.cifra {
+  white-space: nowrap;
+}
+
+.tabla tr.destacada th,
+.tabla tr.destacada td {
+  font-weight: 700;
+}
+
+.tabla tr.nivel-fuera th {
+  color: var(--error);
+}
+
+details {
+  margin: 0.5rem 0;
+}
+
+details summary {
+  cursor: pointer;
+  font-size: var(--t-2);
+  color: var(--tinta-suave);
+}
+
+/* ---------- Paso 1: suelo, clima y relieve en 3D ---------- */
+
+.muestra-de-campo {
+  border: 1px solid var(--linea);
+  padding: 0.75rem 1rem;
+  margin-top: 0.75rem;
+}
+
+.relieve-3d {
+  position: relative;
+  height: min(68vh, 640px);
+  border: 1px solid var(--linea);
+  overflow: hidden;
+  touch-action: none;
+}
+
+.relieve-3d canvas {
+  display: block;
+}
+
+.relieve-3d .cargando {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  display: grid;
+  place-items: center;
+}
+
+.rotulos-3d {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.rotulo-3d {
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 0.15rem 0.45rem;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--linea);
+  font-family: var(--mono);
+  font-size: var(--t-1);
+  white-space: nowrap;
+}
+
+.perfil.plano {
+  border: 1px solid var(--linea);
+  padding: 1rem;
+  margin: 0;
+}
+
+/* ---------- Paso 2: las sugerencias del modelo ---------- */
+
+.sugerencias {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 0.5rem 0;
+}
+
+.sugerencia {
+  border: 1px solid var(--linea);
+  padding: 1rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  font-size: var(--t-2);
+}
+
+.sugerencia.elegida {
+  border: 2px solid var(--tinta);
+  padding: calc(1rem - 1px) calc(1.1rem - 1px);
+}
+
+.sugerencia h4 {
+  margin: 0;
+  font-size: var(--t-4);
+}
+
+.sugerencia p {
+  margin: 0.25rem 0;
+}
+
+.sugerencia > button {
+  margin-top: auto;
+}
+
+.sugerencia details {
+  margin-bottom: 0.75rem;
+}
+
+.barra-de-probabilidad {
+  height: 6px;
+  background: var(--linea-suave);
+  margin: 0.4rem 0 0.5rem;
+}
+
+.barra-de-probabilidad > div {
+  height: 100%;
+  background: var(--tinta-suave);
+}
+
+.efecto {
+  margin-top: 1.25rem;
+}
+
+.dos-columnas {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+ul.condiciones {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+  font-size: var(--t-2);
+  display: grid;
+  gap: 0.4rem;
+}
+
+/* La pregunta antes de ver el efecto. */
+.prediccion {
+  border: 2px solid var(--tinta);
+  padding: 1rem 1.25rem;
+  margin: 1.25rem 0;
+}
+
+.prediccion fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.prediccion legend {
+  font-size: var(--t-3);
+  margin-bottom: 0.75rem;
+}
+
+.prediccion legend .rotulo {
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+/* ---------- Paso 3: la curva y las salidas ---------- */
+
+.curva {
+  position: relative;
+  border: 1px solid var(--linea);
+  padding: 0.75rem;
+}
+
+.curva canvas {
+  display: block;
+  max-width: 100%;
+}
+
+/* Los lienzos nunca empujan el ancho de su columna: el observador de tamaño los vuelve a dibujar al ancho real. */
+.lienzo,
+.panel,
+.curva,
+.corte,
+.perfil,
+.vistas-de-la-red,
+.lado-a-lado figure {
+  min-width: 0;
+}
+
+.corte canvas,
+.perfil canvas,
+.vistas-de-la-red canvas {
+  max-width: 100%;
+}
+
+.detalle-de-la-curva {
+  position: absolute;
+  z-index: 10;
+  display: grid;
+  gap: 0.1rem;
+  padding: 0.4rem 0.6rem;
+  background: var(--fondo);
+  border: 1px solid var(--linea);
+  box-shadow: 0 1px 3px rgba(17, 24, 39, 0.15);
+  font-size: var(--t-1);
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.leyenda-de-la-curva {
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem 1.2rem;
+  font-size: var(--t-1);
+  color: var(--tinta-suave);
+}
+
+.muestra.linea-discontinua {
+  height: 0;
+  width: 1.4rem;
+  border-top: 2px dashed var(--tinta);
+  box-shadow: none;
+  border-radius: 0;
+  transform: translateY(-0.2rem);
+}
+
+.veredicto {
+  border: 2px solid var(--tinta);
+  padding: 1rem 1.25rem;
+}
+
+.veredicto h3 {
+  margin: 0 0 0.4rem;
+  font-size: var(--t-4);
+}
+
+.veredicto p {
+  margin: 0;
+  font-size: var(--t-2);
+  color: var(--tinta-suave);
+}
+
+.veredicto p.rotulo {
+  margin-bottom: 0.3rem;
+}
+
+.veredicto.no {
+  border-color: var(--error);
+}
+
+.salidas {
+  border: 0;
+  padding: 0;
+  margin: 1.25rem 0 0;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.salidas legend h3 {
+  margin: 0 0 0.6rem;
+}
+
+.salida {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  border: 1px solid var(--linea);
+  padding: 0.7rem 0.9rem;
+  cursor: pointer;
+}
+
+.salida input {
+  margin-top: 0.3rem;
+}
+
+.salida:has(input:checked) {
+  border: 2px solid var(--tinta);
+  padding: calc(0.7rem - 1px) calc(0.9rem - 1px);
+}
+
+.salida.no-viable {
+  color: var(--gris);
+}
+
+.salida.no-viable:has(input:disabled) {
+  cursor: not-allowed;
+}
+
+.salida .detalle {
+  display: block;
+  font-size: var(--t-2);
+  color: var(--tinta-suave);
+  margin-top: 0.15rem;
+}
+
+.salida.no-viable .detalle {
+  font-style: italic;
+}
+
+.cuantos-turnos {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.45rem;
+}
+
+.salida .cuantos-turnos input {
+  width: 4.5rem;
+  margin-top: 0;
+  padding: 0.3rem 0.5rem;
+}
+
+.cuantos-turnos .detalle {
+  margin-top: 0;
+}
+
+/* ---------- Paso 4: el corte del suelo ---------- */
+
+.corte {
+  margin: 0;
+  border: 1px solid var(--linea);
+  padding: 0.75rem;
+}
+
+.corte canvas {
+  display: block;
+}
+
+.corte figcaption {
+  font-size: var(--t-2);
+  color: var(--tinta-suave);
+  margin-top: 0.5rem;
+}
+
+.salidas.metodos {
+  margin-top: 0;
+}
+
+input[type='range'] {
+  padding: 0;
+  border: 0;
+  accent-color: var(--tinta);
+}
+
+@media (max-width: 1100px) {
+  /* minmax(0, 1fr) y no 1fr: con 1fr la columna no baja del ancho del lienzo y la página se estira en el celular. */
+  .paso-con-panel,
+  .dos-columnas {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sugerencias {
+    grid-template-columns: 1fr;
+  }
+
+  .paso-con-panel .panel {
+    border-left: 0;
+    padding-left: 0;
+  }
+}
+
+@media (max-width: 700px) {
+  .campos.tres {
+    grid-template-columns: 1fr;
+  }
+
+  /* En el celular una cifra larga baja de línea en vez de salirse de la pantalla. */
+  .dato dd {
+    white-space: normal;
+    text-align: right;
+    overflow-wrap: anywhere;
+  }
+
+  /* El mapa deja ver lo que sigue: con el 68 % de la pantalla, deslizar el dedo movía el mapa y no la página. */
+  .mapa,
+  .relieve-3d {
+    height: 50vh;
+  }
+
+  .titulo-del-paso {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-bottom: 0.5rem;
+  }
+
+  .tarjetas {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Pasos 5 y 6: la red */
+
+.leyenda-de-presion {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.9rem;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--t-1);
+  color: var(--tinta-suave);
+}
+
+.leyenda-de-presion .trazo {
+  vertical-align: middle;
+}
+
+.leyenda-de-presion span {
+  display: inline-block;
+  width: 0.75rem;
+  height: 0.75rem;
+  margin-right: 0.25rem;
+  vertical-align: -1px;
+}
+
+.vistas-de-la-red {
+  display: grid;
+  gap: 1rem;
+}
+
+/* Los controles de la vista (qué sector se riega, cerrar las válvulas, 2D o 3D) van en una columna a la izquierda, y las
+   vistas de la red ocupan el resto: la planta, el 3D y el perfil quedan en primer plano. */
+.vistas-con-controles {
+  display: grid;
+  grid-template-columns: 13.5rem minmax(0, 1fr);
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.controles-de-la-vista {
+  position: sticky;
+  top: calc(var(--alto-encabezado) + 4.5rem);
+  display: grid;
+  gap: 0.75rem;
+}
+
+.controles-de-la-vista .modos-de-la-red {
+  flex-direction: column;
+  align-items: stretch;
+  flex-wrap: nowrap;
+}
+
+.controles-de-la-vista .modos-de-la-red {
+  margin-bottom: 0;
+}
+
+.controles-de-la-vista .modos-de-la-red button {
+  width: 100%;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.92rem;
+  text-align: left;
+}
+
+.controles-de-la-vista .que-es-un-sector,
+.controles-de-la-vista .aviso {
+  margin: 0;
+  font-size: 0.85rem;
+}
+
+.vistas {
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+}
+
+@media (max-width: 900px) {
+  .vistas-con-controles {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .controles-de-la-vista {
+    position: static;
+  }
+
+  .controles-de-la-vista .modos-de-la-red {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .controles-de-la-vista .modos-de-la-red button {
+    width: auto;
+  }
+}
+
+.vistas-de-la-red canvas {
+  display: block;
+  max-width: 100%;
+}
+
+.vistas-de-la-red .relieve-3d {
+  height: 460px;
+}
+
+/* En pantallas anchas, la planta y el perfil van lado a lado: la planta de una parcela cuadrada ya no deja media columna
+   vacía. Todo lo demás (títulos, sectores, el 3D) sigue ocupando el ancho completo. */
+@media (min-width: 1500px) {
+  .vistas-de-la-red {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .vistas-de-la-red > * {
+    grid-column: 1 / -1;
+  }
+
+  .vistas-de-la-red > div:has(> canvas) {
+    grid-column: auto;
+  }
+}
+
+.alertas h3 {
+  margin-top: 1rem;
+}
+
+.alertas .cuenta {
+  padding: 0 0.4rem;
+  border: 1px solid var(--linea);
+  font-family: var(--mono);
+  font-size: var(--t-1);
+}
+
+.alertas h4 {
+  margin: 0.75rem 0 0.25rem;
+  font-size: var(--t-2);
+  font-weight: 600;
+}
+
+.alertas .impide h4,
+.alertas .corrige h4 {
+  color: var(--error);
+}
+
+.alertas ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.alertas li {
+  padding: 0.6rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid var(--linea);
+  font-size: var(--t-2);
+}
+
+.alertas li p {
+  margin: 0 0 0.35rem;
+}
+
+.alertas .ubicacion {
+  font-family: var(--mono);
+  font-size: var(--t-1);
+  color: var(--gris);
+}
+
+.alertas li button:not(.enlace) {
+  margin: 0.25rem 0.35rem 0 0;
+}
+
+.modos-de-la-red {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.modos-de-la-red .separador {
+  flex: 1;
+}
+
+.modos-de-la-red button[aria-pressed='true'] {
+  color: var(--fondo);
+  background: var(--tinta);
+  border-color: var(--tinta);
+}
+
+.modos-de-la-red .probado::after {
+  content: ' ✓';
+}
+
+/* La tabla se desplaza dentro de su caja: en el celular no estira la página. */
+.desplazable {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.desplazable > .tabla {
+  margin: 0;
+}
+
+.tabla-con-altura {
+  max-height: 16rem;
+  overflow-y: auto;
+}
+
+.tabla tbody tr.elegible {
+  cursor: pointer;
+}
+
+.tabla tbody tr.roto th,
+.tabla tbody tr.roto td {
+  color: var(--error);
+  font-weight: 600;
+}
+
+.editor-del-tramo {
+  padding: 0.75rem;
+  margin: 0.75rem 0;
+  border: 1px solid var(--linea);
+}
+
+.editor-del-tramo h3 {
+  margin-top: 0;
+}
+
+.precios-provisionales {
+  font-size: var(--t-1);
+  color: var(--alerta);
+}
+
+/* Paso 7: las alternativas del modelo, junto al diseño del estudiante */
+.alternativas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 0.75rem;
+}
+.tarjeta-alternativa {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.75rem;
+  text-align: left;
+  white-space: normal;
+}
+/* La elegida se marca con el borde y no con outline: el outline queda libre para el foco del teclado. */
+.tarjeta-alternativa[aria-checked='true'] {
+  border-width: 2px;
+  padding: calc(0.75rem - 1px);
+}
+.lado-a-lado {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  gap: 1rem;
+}
+.lado-a-lado figure {
+  margin: 0;
+  min-width: 0;
+}
+.comparacion {
+  width: 100%;
+}
+.peso {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+/* Paso 8: el informe */
+.informe {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.detalle-del-presupuesto summary {
+  cursor: pointer;
+}
+
+/* Saltar la barra e ir directo al contenido: el primer elemento con Tab. */
+.saltar {
+  position: absolute;
+  left: 1rem;
+  top: -3rem;
+  z-index: 2000;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radio-2);
+  background: var(--azul-profundo);
+  color: var(--sobre-primario);
+}
+
+.saltar:focus {
+  top: 0.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* El foco que pone la app al cambiar de paso o al saltar al contenido no dibuja un marco alrededor de todo. */
+.contenido:focus,
+main h2[tabindex='-1']:focus {
+  outline: none;
+}
+
+/* Alertas en tarjetas: una por tipo, con la gravedad en el borde y el porqué a un clic (PanelDeAlertas). */
+.alertas .resumen-de-alertas {
+  margin: 0.25rem 0 0.75rem;
+  font-size: var(--t-1);
+  color: var(--gris);
+}
+
+.alertas .todo-bien {
+  padding: 0.6rem 0.75rem;
+  border-left: 4px solid var(--agua);
+  background: var(--fondo-suave);
+}
+
+.tarjeta-de-alerta {
+  margin-bottom: 0.75rem;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--linea);
+  border-left-width: 4px;
+  font-size: var(--t-2);
+}
+
+.tarjeta-de-alerta.impide {
+  border-left-color: var(--error);
+}
+
+.tarjeta-de-alerta.corrige {
+  border-left-color: var(--alerta);
+  background: var(--alerta-fondo);
+}
+
+.tarjeta-de-alerta.avisa {
+  border-left-color: var(--linea);
+}
+
+.tarjeta-de-alerta header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.tarjeta-de-alerta .etiqueta {
+  font-size: var(--t-1);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--gris);
+}
+
+.tarjeta-de-alerta.impide .etiqueta {
+  color: var(--error);
+}
+
+.tarjeta-de-alerta.corrige .etiqueta {
+  color: var(--alerta);
+}
+
+.alertas .tarjeta-de-alerta h4 {
+  margin: 0;
+  color: var(--tinta);
+}
+
+.tarjeta-de-alerta h4 .cuenta {
+  margin-left: 0.4rem;
+}
+
+.tarjeta-de-alerta .accion {
+  margin: 0.35rem 0;
+  font-weight: 600;
+}
+
+.alertas .tarjeta-de-alerta .casos li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0.15rem 0;
+  border: 0;
+  font-family: var(--mono);
+  font-size: var(--t-1);
+  color: var(--tinta-suave);
+}
+
+.tarjeta-de-alerta .botones-de-alerta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.4rem;
+}
+
+.tarjeta-de-alerta button.chico {
+  padding: 0 0.4rem;
+  font-size: var(--t-1);
+}
+
+.tarjeta-de-alerta details {
+  margin-top: 0.35rem;
+  font-size: var(--t-1);
+}
+
+.tarjeta-de-alerta .por-que summary {
+  color: var(--agua);
+  cursor: pointer;
+}
+
+/* ---------- Figuras: cada vista o gráfico lleva su título y qué muestra ---------- */
+
+.figura {
+  margin: 0 0 1.25rem;
+  min-width: 0;
+}
+
+.cabeza-de-figura {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.figura figcaption {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.titulo-de-figura {
+  font-weight: 700;
+  font-size: var(--t-3);
+  color: var(--tinta);
+}
+
+.que-muestra {
+  font-size: var(--t-1);
+  color: var(--tinta-suave);
+  line-height: 1.45;
+}
+
+.lectura-de-figura {
+  margin-top: 0.5rem;
+  padding: 0.6rem 0.8rem;
+  background: var(--fondo-suave);
+  border-left: 3px solid var(--agua);
+  font-size: var(--t-2);
+  color: var(--tinta-suave);
+  line-height: 1.5;
+}
+
+.lectura-de-figura p {
+  margin: 0;
+}
+
+.grupo-de-datos {
+  margin-top: 1rem;
+}
+
+.grupo-de-datos h4 {
+  margin: 0 0 0.2rem;
+  font-size: var(--t-1);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--agua);
+}
+
+.grafico-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  font-family: var(--letra);
+}
+
+.grafico-svg text {
+  font-size: 12px;
+  fill: var(--tinta-suave);
+}
+
+.grafico-svg .fuerte {
+  fill: var(--tinta);
+  font-weight: 600;
+}
+
+.grafico-svg .en-barra {
+  fill: #fff;
+  font-weight: 600;
+}
+
+.graficos-del-riego {
+  margin-top: 1.5rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.graficos-del-riego .grafico-svg {
+  max-width: 46rem;
+}
+
+.titulo-de-vista {
+  margin-top: 0.75rem;
+}
+
+.titulo-de-vista .figcaption {
+  display: grid;
+  gap: 0.15rem;
+}
+
+/* La página nunca es más ancha que la ventana: la barra de etapas no ensancha el marco. Entre tableta y pantalla
+   grande solo el paso actual muestra su nombre; los demás, su número y estado (el nombre va en el título y en el menú). */
+.marco {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.encabezado,
+.etapas {
+  min-width: 0;
+}
+
+@media (max-width: 1400px) {
+  .etapa:not(.actual) .etapa-nombre {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .etapa:not(.actual) button,
+  .etapa:not(.actual) .etapa-fija {
+    padding-right: 0.3rem;
+  }
+
+  /* Con solo los números a la vista, el nombre de la disciplina arranca con el grupo para no ensancharlo. */
+  .disciplina-nombre {
+    margin-left: 0;
+  }
+
+  .disciplina-nombre::after {
+    min-width: 0.5rem;
+  }
+}
+
+/* El panel de cada paso se angosta en pantallas medianas para dejarle ancho a la vista. */
+@media (max-width: 1400px) {
+  .paso-con-panel {
+    grid-template-columns: minmax(0, 1fr) 22rem;
+  }
+}
+
+.del-veredicto {
+  margin-top: 0.75rem;
+}
+
+.del-veredicto .tabla th[scope="row"] {
+  font-weight: 500;
+}
+
+/* Un panel corto acompaña a la vista al bajar: el veredicto y los botones quedan a la vista. */
+@media (min-width: 961px) {
+  .panel-fijo {
+    position: sticky;
+    top: calc(var(--alto-encabezado) + var(--alto-etapas) + 1rem);
+  }
+}
+
+.vista-con-titulo .titulo-de-vista {
+  margin-top: 0;
+}
+
+@media (min-width: 1500px) {
+  .vistas-de-la-red > .vista-con-titulo {
+    grid-column: auto;
+  }
+}
+
+@media (min-width: 1500px) {
+  .vistas-de-la-red > .relieve-3d {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ---------- Leyenda de la red: qué significa cada color ---------- */
+
+.leyenda-de-la-red {
+  margin-top: 0.6rem;
+  padding: 0.6rem 0.75rem;
+  background: var(--fondo-suave);
+  border: 1px solid var(--linea-suave);
+  font-size: var(--t-1);
+  color: var(--tinta-suave);
+}
+
+.titulo-de-la-leyenda {
+  margin: 0 0 0.4rem;
+  font-weight: 600;
+  color: var(--tinta);
+}
+
+.leyenda-de-la-red ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  gap: 0.35rem 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.leyenda-de-la-red li {
+  display: grid;
+  grid-template-columns: 1.9rem minmax(0, 1fr);
+  align-items: start;
+  gap: 0.4rem;
+  line-height: 1.4;
+}
+
+.leyenda-de-la-red .trazo {
+  margin-top: 0.25rem;
+}
+
+.leyenda-de-la-red strong {
+  color: var(--tinta);
+}
+
+.muestra-plana {
+  display: inline-block;
+  width: 1.6rem;
+  height: 0.7rem;
+  margin-top: 0.2rem;
+  border-radius: 2px;
+  box-shadow: inset 0 0 0 1px rgba(17, 24, 39, 0.2);
+}
+
+/* Los botones de la vista en planta (ver la conducción, ver el agua) son controles del dibujo: van sobre él, pero
+   separados, no pegados a su borde. */
+.red-en-planta > .acciones {
+  margin-bottom: var(--e-3);
+}
+
+.lienzo-con-agua {
+  position: relative;
+}
+
+.lienzo-con-agua .capa-del-agua {
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+}
+
+@media (min-width: 1500px) {
+  .vistas-de-la-red > .red-en-planta {
+    grid-column: auto;
+  }
+}
+
+.muestra-chica {
+  display: inline-block;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 2px;
+  vertical-align: -1px;
+  box-shadow: inset 0 0 0 1px rgba(17, 24, 39, 0.2);
+}
+
+.leyenda-de-la-red .leyenda-del-terreno {
+  grid-column: 1 / -1;
+}
+
+/* ---------- Guía del paso y esquema de la red ---------- */
+
+.guia-del-paso {
+  margin-bottom: 1.25rem;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid var(--linea);
+  border-left: 3px solid var(--agua);
+  background: var(--fondo-suave);
+}
+
+.guia-del-paso h3 {
+  margin: 0 0 0.5rem;
+}
+
+.guia-del-paso ol {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--t-2);
+}
+
+.guia-del-paso li {
+  display: grid;
+  grid-template-columns: 1.5rem minmax(0, 1fr);
+  gap: 0.5rem;
+  align-items: start;
+  color: var(--tinta-suave);
+}
+
+.guia-del-paso .marca {
+  display: grid;
+  place-items: center;
+  width: 1.4rem;
+  height: 1.4rem;
+  border: 1.5px solid var(--borde-control);
+  border-radius: 50%;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  background: var(--superficie);
+}
+
+.guia-del-paso li.hecha .marca {
+  border-color: var(--verde);
+  background: var(--verde);
+  color: #fff;
+}
+
+.guia-del-paso li.siguiente {
+  color: var(--tinta);
+  font-weight: 600;
+}
+
+.guia-del-paso li.siguiente .marca {
+  border-color: var(--agua);
+  background: var(--agua);
+  color: var(--sobre-primario);
+}
+
+.guia-del-paso .detalle,
+.guia-del-paso .opcional {
+  font-weight: 400;
+  color: var(--gris);
+}
+
+.avance-de-la-guia {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.6rem;
+  font-size: var(--t-1);
+  color: var(--tinta-suave);
+}
+
+.avance-de-la-guia progress {
+  flex: 1;
+  height: 0.5rem;
+  accent-color: var(--verde);
+}
+
+.esquema-de-la-red {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0 0 0.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.esquema-de-la-red li {
+  display: flex;
+  align-items: stretch;
+  flex: 1 1 8.5rem;
+  min-width: 0;
+}
+
+.esquema-de-la-red li + li::before {
+  content: "→";
+  align-self: center;
+  margin-right: 0.4rem;
+  color: var(--agua);
+  font-weight: 700;
+}
+
+.esquema-de-la-red li > button,
+.esquema-de-la-red li > div {
+  display: grid;
+  align-content: start;
+  gap: 0.1rem;
+  flex: 1;
+  min-width: 0;
+  padding: 0.45rem 0.55rem;
+  border: 1px solid var(--linea);
+  border-radius: var(--radio-1, 4px);
+  background: var(--superficie);
+  text-align: left;
+  font: inherit;
+  font-size: var(--t-1);
+  color: var(--tinta-suave);
+}
+
+.esquema-de-la-red li > button {
+  cursor: pointer;
+}
+
+.esquema-de-la-red li > button:hover {
+  border-color: var(--agua);
+  background: var(--azul-tecnico-suave);
+}
+
+.esquema-de-la-red strong {
+  color: var(--tinta);
+  font-size: var(--t-2);
+}
+
+.esquema-de-la-red .punto {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+}
+
+.esquema-de-la-red .cifras {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  color: var(--tinta);
+}
+
+.esquema-de-la-red li {
+  position: relative;
+}
+
+/* Para qué sirve cada parte: aparece al pasar el cursor, al llegar con el teclado o al hacer clic. Cerrada sigue en el
+   documento (los lectores de pantalla la leen como descripción del botón), solo que fuera de la vista. */
+.esquema-de-la-red .para-que {
+  position: absolute;
+  z-index: 20;
+  left: 0;
+  top: calc(100% + 0.35rem);
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.45rem 0.6rem;
+  border-radius: var(--radio-1, 4px);
+  background: var(--azul-profundo);
+  color: var(--sobre-primario);
+  font-size: var(--t-1);
+  line-height: 1.4;
+  box-shadow: 0 4px 12px rgba(17, 24, 39, 0.2);
+  clip-path: inset(50%);
+  pointer-events: none;
+}
+
+.esquema-de-la-red li:hover .para-que,
+.esquema-de-la-red li:focus-within .para-que,
+.esquema-de-la-red li.abierta .para-que {
+  clip-path: none;
+}
+
+.esquema-de-la-red li.abierta > button {
+  border-color: var(--agua);
+  background: var(--azul-tecnico-suave);
+}
+
+.que-es-un-sector {
+  margin: 0.35rem 0 0;
+  font-size: var(--t-1);
+  color: var(--tinta-suave);
+}
+
+/* Las acciones de cada proyecto: eliminar va al final y en rojo, para no confundirlo con continuar. */
+.acciones-del-proyecto {
+  flex-wrap: wrap;
+}
+
+.acciones-del-proyecto .peligro {
+  margin-left: auto;
+}
+
+/* ---------- Tema en blanco y negro (diseño de noviembre de 2026, apps/web/diseno/) ---------- */
+
+/* En el tema oscuro las figuras son una hoja clara sobre la mesa: sus dibujos conservan el contraste con que se
+   pensaron y se leen igual que impresos en el informe. */
+:root[data-tema='oscuro'] :is(.figura, .vista-con-titulo) {
+  padding: var(--e-3);
+  border-radius: var(--radio-3);
+  background: var(--superficie);
+}
+
+/* «Continuar»: la acción de cada tarjeta. Negro en el claro y gris en el oscuro, para no competir con «Nuevo
+   proyecto», que es la acción principal de la pantalla. */
+button.fuerte {
+  min-width: 8.5rem;
+  background: var(--boton-fuerte);
+  border-color: var(--boton-fuerte-borde);
+  color: var(--boton-fuerte-texto);
+  font-weight: 500;
+}
+
+button.fuerte:hover:not(:disabled) {
+  background: var(--boton-fuerte-hover);
+  border-color: var(--boton-fuerte-borde);
+}
+
+/* Descargar: verde lleno. Eliminar: rojo lleno. Los dos llevan icono y texto o nombre para lectores. */
+button.exito,
+button.peligro {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  border-color: transparent;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+button.exito {
+  background: var(--verde);
+}
+
+button.exito:hover:not(:disabled) {
+  background: var(--verde-hover);
+  border-color: transparent;
+}
+
+button.peligro {
+  min-width: 4.25rem;
+  background: var(--rojo);
+}
+
+button.peligro:hover:not(:disabled) {
+  background: var(--rojo-hover);
+  border-color: transparent;
+}
+
+/* La lista de proyectos: un panel con tarjetas de borde marcado y una sombra corta. */
+.tarjetas {
+  gap: var(--e-4);
+}
+
+.tarjeta {
+  background: var(--superficie);
+  border-radius: var(--radio-2);
+}
+
+.tarjetas .tarjeta {
+  display: flex;
+  flex-direction: column;
+  padding: var(--e-5) var(--e-5) var(--e-5);
+  border: 2px solid var(--borde);
+  box-shadow: var(--sombra-tarjeta);
+}
+
+.tarjetas .tarjeta .entre {
+  align-items: flex-start;
+}
+
+.tarjetas .tarjeta h3 {
+  font-size: var(--t-3);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.tarjetas .tarjeta .entre .rotulo {
+  flex: none;
+  max-width: 5.5rem;
+  margin: 0.15rem 0 0;
+  text-align: right;
+  line-height: 1.35;
+  letter-spacing: 0.04em;
+}
+
+.tarjetas .progreso {
+  height: 3px;
+  margin: var(--e-5) 0 var(--e-4);
+  border-radius: var(--radio-pildora);
+  background: var(--borde-suave);
+}
+
+.tarjetas .progreso > div {
+  border-radius: inherit;
+}
+
+.tarjetas .acciones-del-proyecto {
+  margin-top: auto;
+  padding-top: var(--e-2);
+}
+
+/* El cambio de tema, en el encabezado: un botón redondo con el icono del tema al que se pasa. */
+.boton-de-tema {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border-color: var(--borde);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--texto);
+}
+
+.boton-de-tema:hover:not(:disabled) {
+  background: var(--superficie-hundida);
+  border-color: var(--texto-tenue);
+}

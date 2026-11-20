@@ -1,0 +1,46 @@
+{
+  "validacion": "Cruzada por red, 5 particiones, sobre redes no vistas",
+  "errores": {
+    "costoPct": {
+      "errorMedioAbsoluto": 2.310116679595865,
+      "errorDeEstimarSiempreLaMedia": 6.74562473939209,
+      "r2": 0.8335100191481873
+    },
+    "uniformidad": {
+      "errorMedioAbsoluto": 2.1193143479423653,
+      "errorDeEstimarSiempreLaMedia": 5.4960634933654795,
+      "r2": 0.6731632678802264
+    },
+    "margenM": {
+      "errorMedioAbsoluto": 0.9303048846491733,
+      "errorDeEstimarSiempreLaMedia": 2.2673150524841286,
+      "r2": 0.7231114391816063
+    },
+    "funciona": {
+      "errorMedioAbsoluto": 0.2502359909660656,
+      "errorDeEstimarSiempreLaMedia": 0.45531591796875,
+      "r2": 0.475044492309154
+    }
+  },
+  "areaBajoLaCurvaDeFunciona": 0.8912374670626232,
+  "correlacionDentroDeCadaRed": {
+    "costoPct": 0.917294744151971,
+    "uniformidad": 0.8874910260536049,
+    "margenM": 0.8602377668697847
+  },
+  "partFuncionan": 0.6496875,
+  "hiperparametros": {
+    "n_estimators": 30,
+    "max_depth": 11,
+    "min_samples_leaf": 5
+  },
+  "diferenciaMaximaConOnnx": 2.1551201115244112e-05,
+  "version": "redes-dbfa09a9",
+  "semilla": 20261107,
+  "datos": {
+    "sha256": "dbfa09a94c0699f705ff07c3cb5f8d10551682016de9bcef76c5071e77c15ab3",
+    "filas": 6400,
+    "redes": 400
+  },
+  "pesoDelOnnxKb": 984
+}

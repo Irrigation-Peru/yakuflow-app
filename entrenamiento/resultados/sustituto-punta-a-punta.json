@@ -1,0 +1,19 @@
+{
+  "version": "redes-dbfa09a9",
+  "redes": 60,
+  "modificacionesPosiblesPorRed": 138.13333333333333,
+  "recalculadasPorRed": 15.583333333333334,
+  "redesConAlternativasPct": 98.33333333333333,
+  "modelo": {
+    "pasanLaVerificacionPct": 80.64171122994652,
+    "funcionanYMejoranPct": 68.66310160427808,
+    "ahorroMedioDeLaMejorPct": 6.047396137706537
+  },
+  "alAzarConElMismoEsfuerzo": {
+    "pasanLaVerificacionPct": 67.37967914438502,
+    "funcionanYMejoranPct": 33.68983957219251,
+    "ahorroMedioDeLaMejorPct": 4.642325223587281
+  },
+  "tiempoMsMediano": 837.4670000000042,
+  "tiempoMsMaximo": 8160.260699999999
+}

@@ -1,0 +1,67 @@
+# ---- OneDrive / Windows ----
+desktop.ini
+Thumbs.db
+ehthumbs.db
+$RECYCLE.BIN/
+*.lnk
+*.tmp
+~$*
+
+# ---- macOS (por si alguien del equipo usa Mac) ----
+.DS_Store
+
+# ---- Editores ----
+.vscode/
+.idea/
+*.swp
+*.sublime-*
+
+# ---- Herramientas locales del entorno de trabajo ----
+.claude/
+CLAUDE.md
+
+# ---- Paquete original de contexto ----
+# El contenido ya está versionado y legible en contexto_tesis/.
+# El .zip duplicaría 42 KB de binario en cada diff.
+CONTEXTO_TESIS_COMPLETO.zip
+
+# ---- Desarrollo futuro (React + Node) ----
+node_modules/
+dist/
+build/
+coverage/
+.env
+.env.*
+!.env.example
+*.log
+npm-debug.log*
+.cache/
+.parcel-cache/
+.next/
+.turbo/
+
+# ---- Datos sensibles de la validación ----
+# Respuestas de estudiantes y exportaciones con datos personales.
+# Ley N.o 29733 de Protección de Datos Personales.
+datos-validacion/
+*.sav
+respuestas_*.xlsx
+respuestas_*.csv
+
+# ---- Caché de herramientas locales ----
+.impeccable/
+
+# ---- Código generado ----
+# El cliente de Prisma se genera al instalar (pnpm install) a partir de apps/api/prisma/schema.prisma.
+apps/api/src/generado/
+apps/api/.bd-local/
+
+# ---- Pruebas de punta a punta ----
+apps/web/test-results/
+apps/web/playwright-report/
+
+# ---- Entrenamiento de los modelos ----
+# El entorno de Python y el conjunto sintético se regeneran con la semilla (packages/modelos/entrenamiento).
+packages/modelos/entrenamiento/.venv/
+packages/modelos/entrenamiento/datos/
+__pycache__/

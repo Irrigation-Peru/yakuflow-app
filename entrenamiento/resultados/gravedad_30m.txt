@@ -1,0 +1,84 @@
+FILTRO desnivel >= 30.0 m
+sitios 6932 {'Costa': 947, 'Sierra': 4799, 'Selva': 1186} celdas 211 clases 33
+altitud por region {'Costa': (80, 1801), 'Sierra': (2320, 4003), 'Selva': (321, 1786)}
+
+Cobertura: parte de lo cosechado que el catalogo de 8 cultivos puede representar
+  Costa   catalogo actual  11.5%   ampliado  65.8%
+  Sierra  catalogo actual  46.6%   ampliado  86.7%
+  Selva   catalogo actual   7.4%   ampliado  69.8%
+
+=== Escenario A: solo los 8 cultivos actuales
+  -- Peru (sitios 6932)
+     modelo real        1ra cosechada  70.5%   registros en 3  38.1%
+     tabla por altitud  1ra cosechada  69.7%   registros en 3  37.5%
+     lo mas comun       1ra cosechada  53.6%   registros en 3  36.5%
+     regla del catalogo 1ra cosechada  32.7%   registros en 3  19.4%
+     sintetico actual   1ra cosechada  17.1%   registros en 3  19.7%
+     real - tabla por altitud    +0.8 pp  IC95 [  +0.0,   +1.6]
+     real - lo mas comun        +16.9 pp  IC95 [ +13.8,  +20.0]
+     real - regla del catalogo  +37.8 pp  IC95 [ +34.4,  +41.0]
+     real - sintetico actual    +53.4 pp  IC95 [ +49.5,  +57.2]
+  -- Costa (sitios 947)
+     modelo real        1ra cosechada  45.6%   registros en 3  17.1%
+     tabla por altitud  1ra cosechada  45.9%   registros en 3  17.1%
+     lo mas comun       1ra cosechada  27.0%   registros en 3  17.0%
+     regla del catalogo 1ra cosechada   4.9%   registros en 3   3.8%
+     sintetico actual   1ra cosechada   1.0%   registros en 3   0.4%
+     real - tabla por altitud    -0.3 pp  IC95 [  -1.8,   +1.3]
+     real - lo mas comun        +18.6 pp  IC95 [ +10.1,  +27.5]
+     real - regla del catalogo  +40.7 pp  IC95 [ +34.3,  +46.8]
+     real - sintetico actual    +44.6 pp  IC95 [ +38.4,  +51.1]
+  -- Sierra (sitios 4799)
+     modelo real        1ra cosechada  82.1%   registros en 3  44.8%
+     tabla por altitud  1ra cosechada  80.9%   registros en 3  44.0%
+     lo mas comun       1ra cosechada  68.0%   registros en 3  42.8%
+     regla del catalogo 1ra cosechada  41.5%   registros en 3  23.1%
+     sintetico actual   1ra cosechada  23.4%   registros en 3  24.7%
+     real - tabla por altitud    +1.2 pp  IC95 [  +0.1,   +2.4]
+     real - lo mas comun        +14.1 pp  IC95 [ +10.8,  +17.4]
+     real - regla del catalogo  +40.6 pp  IC95 [ +36.4,  +44.6]
+     real - sintetico actual    +58.7 pp  IC95 [ +54.2,  +63.0]
+  -- Selva (sitios 1186)
+     modelo real        1ra cosechada  42.4%   registros en 3  10.5%
+     tabla por altitud  1ra cosechada  42.4%   registros en 3  10.5%
+     lo mas comun       1ra cosechada  15.6%   registros en 3  10.5%
+     regla del catalogo 1ra cosechada  18.3%   registros en 3   7.6%
+     sintetico actual   1ra cosechada   4.1%   registros en 3   2.0%
+     real - tabla por altitud    +0.1 pp  IC95 [  +0.0,   +0.3]
+     real - lo mas comun        +26.9 pp  IC95 [ +19.5,  +34.6]
+     real - regla del catalogo  +24.1 pp  IC95 [ +19.0,  +29.7]
+     real - sintetico actual    +38.3 pp  IC95 [ +31.8,  +45.1]
+
+=== Escenario B: catalogo ampliado a 33 cultivos
+  -- Peru (sitios 6932)
+     modelo real        1ra cosechada  79.7%   registros en 3  56.2%
+     tabla por altitud  1ra cosechada  73.8%   registros en 3  50.4%
+     lo mas comun       1ra cosechada  53.6%   registros en 3  42.4%
+     real - tabla por altitud    +5.8 pp  IC95 [  +3.7,   +8.1]
+     real - lo mas comun        +26.0 pp  IC95 [ +22.4,  +30.0]
+  -- Costa (sitios 947)
+     modelo real        1ra cosechada  58.3%   registros en 3  44.0%
+     tabla por altitud  1ra cosechada  39.8%   registros en 3  32.9%
+     lo mas comun       1ra cosechada  27.0%   registros en 3  24.1%
+     real - tabla por altitud   +18.5 pp  IC95 [ +11.4,  +25.9]
+     real - lo mas comun        +31.3 pp  IC95 [ +24.2,  +37.9]
+  -- Sierra (sitios 4799)
+     modelo real        1ra cosechada  84.8%   registros en 3  57.0%
+     tabla por altitud  1ra cosechada  80.1%   registros en 3  52.5%
+     lo mas comun       1ra cosechada  68.0%   registros en 3  49.4%
+     real - tabla por altitud    +4.8 pp  IC95 [  +2.8,   +7.0]
+     real - lo mas comun        +16.8 pp  IC95 [ +13.4,  +20.4]
+  -- Selva (sitios 1186)
+     modelo real        1ra cosechada  75.3%   registros en 3  61.6%
+     tabla por altitud  1ra cosechada  75.0%   registros en 3  51.6%
+     lo mas comun       1ra cosechada  15.6%   registros en 3  10.7%
+     real - tabla por altitud    +0.3 pp  IC95 [  -3.7,   +4.6]
+     real - lo mas comun        +59.7 pp  IC95 [ +53.1,  +65.5]
+
+Primera sugerencia por region (B):
+  Costa [(np.str_('PALTO'), 385), (np.str_('Maíz, grano'), 158), (np.str_('MANGO'), 96), (np.str_('ARROZ CASCARA'), 89), (np.str_('ALFALFA'), 71), (np.str_('PLATANO'), 58), (np.str_('CAFE PERGAMINO'), 34)]
+  Sierra [(np.str_('Papa'), 1913), (np.str_('Maíz, grano'), 1569), (np.str_('ALFALFA'), 824), (np.str_('Avena'), 171), (np.str_('PALTO'), 159), (np.str_('RYE GRASS'), 86), (np.str_('CAFE PERGAMINO'), 60)]
+  Selva [(np.str_('CAFE PERGAMINO'), 427), (np.str_('CACAO'), 352), (np.str_('PLATANO'), 225), (np.str_('Maíz, grano'), 73), (np.str_('ARROZ CASCARA'), 53), (np.str_('PASTO BRIZANTA'), 26), (np.str_('PALTO'), 17)]
+
+Zonas fuera de lo que vio el modelo sintetico (2000-4600 m): 30.7% de los sitios
+Regla sin cultivo apto por region: {'Costa': '0.0%', 'Sierra': '19.3%', 'Selva': '0.0%'}

@@ -1,0 +1,91 @@
+# La aplicación completa en contenedores, como quedaría en un servidor: PostgreSQL, la API y la web.
+#
+#   node herramientas/docker/crear-entorno.mjs    una vez: el .env de esta carpeta, con claves al azar
+#   docker compose up --build -d                  y la aplicación queda en http://localhost:8080
+#
+# Las claves vienen del .env (git y la imagen lo ignoran); sus nombres están en .env.example. Detalle en DESARROLLO.md.
+
+name: riego
+
+x-imagen-api: &imagen-api
+  build:
+    context: .
+    target: api
+  image: riego-api:local
+  init: true
+
+services:
+  bd:
+    image: postgres:17.6-alpine
+    environment:
+      POSTGRES_DB: riego
+      POSTGRES_USER: riego
+      POSTGRES_PASSWORD: ${CLAVE_BD:?Falta CLAVE_BD en el .env (node herramientas/docker/crear-entorno.mjs)}
+      CLAVE_RIEGO_APP: ${CLAVE_RIEGO_APP:?Falta CLAVE_RIEGO_APP en el .env}
+    volumes:
+      - datos:/var/lib/postgresql/data
+      - ./herramientas/docker/crear-rol.sh:/docker-entrypoint-initdb.d/crear-rol.sh:ro
+      - ./apps/api/prisma/rol-de-la-aplicacion.sql:/riego/rol-de-la-aplicacion.sql:ro
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U riego -d riego']
+      interval: 3s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  # Las migraciones como dueño de la base y, si se pide, el banco de ejemplo. Termina y deja arrancar a la API.
+  preparar:
+    <<: *imagen-api
+    command: ['preparar-bd']
+    environment:
+      URL_MIGRACIONES: postgresql://riego:${CLAVE_BD}@bd:5432/riego?sslmode=disable
+      DATABASE_URL: postgresql://riego_app:${CLAVE_RIEGO_APP}@bd:5432/riego?sslmode=disable
+      CARGAR_BANCO_DE_EJEMPLO: ${CARGAR_BANCO_DE_EJEMPLO:-no}
+    depends_on:
+      bd:
+        condition: service_healthy
+
+  # La API entra como riego_app, que no puede modificar ni borrar el registro de actividad (decisión de software 4).
+  # No publica su puerto: se llega a ella por la web, en /api.
+  api:
+    <<: *imagen-api
+    environment:
+      DATABASE_URL: postgresql://riego_app:${CLAVE_RIEGO_APP}@bd:5432/riego?sslmode=disable
+      DOMINIO_CORREO: ${DOMINIO_CORREO:-undac.edu.pe}
+      CODIGOS_CURSO: ${CODIGOS_CURSO:?Falta CODIGOS_CURSO en el .env}
+      JWT_SECRETO: ${JWT_SECRETO:?Falta JWT_SECRETO en el .env}
+      ORIGEN_WEB: ${ORIGEN_WEB:-http://localhost:8080}
+      CONTACTO_OSM: ${CONTACTO_OSM:?Falta CONTACTO_OSM en el .env}
+      COOKIE_ENTRE_SITIOS: 'no'
+      NIVEL_REGISTRO: ${NIVEL_REGISTRO:-info}
+      # Opcionales: sin definir en el .env valen lo de desarrollo (apps/api/src/configuracion.ts).
+      SALTOS_DE_PROXY: ${SALTOS_DE_PROXY:-1}
+      CONEXIONES_BD: ${CONEXIONES_BD:-10}
+      VIGENCIA_CACHE_DIAS: ${VIGENCIA_CACHE_DIAS:-365}
+      LIMITE_REGISTROS_POR_IP: ${LIMITE_REGISTROS_POR_IP:-200}
+      LIMITE_INTENTOS_DE_SESION: ${LIMITE_INTENTOS_DE_SESION:-10}
+      LIMITE_TESELAS_POR_MINUTO: ${LIMITE_TESELAS_POR_MINUTO:-3000}
+    depends_on:
+      preparar:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ['CMD', 'node', '-e', "fetch('http://localhost:3000/api/salud').then((r) => process.exit(r.ok ? 0 : 1), () => process.exit(1))"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+    restart: unless-stopped
+
+  web:
+    build:
+      context: .
+      target: web
+    image: riego-web:local
+    ports:
+      - '${PUERTO_WEB:-8080}:80'
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  datos:

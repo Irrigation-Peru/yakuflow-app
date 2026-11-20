@@ -1,0 +1,345 @@
+{
+  "version": "referencial-2026-11b",
+  "provisional": true,
+  "fuente": "Referencias de mercado de noviembre de 2026, sin cotización formal. PVC de 40 mm a más: precio del tubo del Generador de precios CYPE Perú (PN6 y PN10), ajustado por diámetro; menores, estimación del equipo. Laterales de goteo: manguera con gotero integrado en rollos de 500 m (S/ 390 a 680), con el gotero incluido.",
+  "moneda": "PEN",
+  "tuberias": [
+    {
+      "diametroInternoMm": 13.6,
+      "clase": "C-5",
+      "precioPorM": 1.1
+    },
+    {
+      "diametroInternoMm": 13.6,
+      "clase": "C-7.5",
+      "precioPorM": 1.3
+    },
+    {
+      "diametroInternoMm": 13.6,
+      "clase": "C-10",
+      "precioPorM": 1.5
+    },
+    {
+      "diametroInternoMm": 13.6,
+      "clase": "C-15",
+      "precioPorM": 2.0
+    },
+    {
+      "diametroInternoMm": 16,
+      "clase": "C-5",
+      "precioPorM": 1.4
+    },
+    {
+      "diametroInternoMm": 16,
+      "clase": "C-7.5",
+      "precioPorM": 1.7
+    },
+    {
+      "diametroInternoMm": 16,
+      "clase": "C-10",
+      "precioPorM": 2.0
+    },
+    {
+      "diametroInternoMm": 16,
+      "clase": "C-15",
+      "precioPorM": 2.7
+    },
+    {
+      "diametroInternoMm": 20,
+      "clase": "C-5",
+      "precioPorM": 2.1
+    },
+    {
+      "diametroInternoMm": 20,
+      "clase": "C-7.5",
+      "precioPorM": 2.6
+    },
+    {
+      "diametroInternoMm": 20,
+      "clase": "C-10",
+      "precioPorM": 3.0
+    },
+    {
+      "diametroInternoMm": 20,
+      "clase": "C-15",
+      "precioPorM": 3.9
+    },
+    {
+      "diametroInternoMm": 25.4,
+      "clase": "C-5",
+      "precioPorM": 3.2
+    },
+    {
+      "diametroInternoMm": 25.4,
+      "clase": "C-7.5",
+      "precioPorM": 3.9
+    },
+    {
+      "diametroInternoMm": 25.4,
+      "clase": "C-10",
+      "precioPorM": 4.6
+    },
+    {
+      "diametroInternoMm": 25.4,
+      "clase": "C-15",
+      "precioPorM": 6.0
+    },
+    {
+      "diametroInternoMm": 32,
+      "clase": "C-5",
+      "precioPorM": 4.8
+    },
+    {
+      "diametroInternoMm": 32,
+      "clase": "C-7.5",
+      "precioPorM": 5.9
+    },
+    {
+      "diametroInternoMm": 32,
+      "clase": "C-10",
+      "precioPorM": 6.9
+    },
+    {
+      "diametroInternoMm": 32,
+      "clase": "C-15",
+      "precioPorM": 9.0
+    },
+    {
+      "diametroInternoMm": 40.8,
+      "clase": "C-5",
+      "precioPorM": 7.1
+    },
+    {
+      "diametroInternoMm": 40.8,
+      "clase": "C-7.5",
+      "precioPorM": 9.0
+    },
+    {
+      "diametroInternoMm": 40.8,
+      "clase": "C-10",
+      "precioPorM": 11.0
+    },
+    {
+      "diametroInternoMm": 40.8,
+      "clase": "C-15",
+      "precioPorM": 14.3
+    },
+    {
+      "diametroInternoMm": 50.8,
+      "clase": "C-5",
+      "precioPorM": 9.5
+    },
+    {
+      "diametroInternoMm": 50.8,
+      "clase": "C-7.5",
+      "precioPorM": 12.2
+    },
+    {
+      "diametroInternoMm": 50.8,
+      "clase": "C-10",
+      "precioPorM": 15.0
+    },
+    {
+      "diametroInternoMm": 50.8,
+      "clase": "C-15",
+      "precioPorM": 19.4
+    },
+    {
+      "diametroInternoMm": 63.5,
+      "clase": "C-5",
+      "precioPorM": 12.9
+    },
+    {
+      "diametroInternoMm": 63.5,
+      "clase": "C-7.5",
+      "precioPorM": 16.7
+    },
+    {
+      "diametroInternoMm": 63.5,
+      "clase": "C-10",
+      "precioPorM": 20.5
+    },
+    {
+      "diametroInternoMm": 63.5,
+      "clase": "C-15",
+      "precioPorM": 26.6
+    },
+    {
+      "diametroInternoMm": 75.4,
+      "clase": "C-5",
+      "precioPorM": 16.3
+    },
+    {
+      "diametroInternoMm": 75.4,
+      "clase": "C-7.5",
+      "precioPorM": 21.2
+    },
+    {
+      "diametroInternoMm": 75.4,
+      "clase": "C-10",
+      "precioPorM": 26.1
+    },
+    {
+      "diametroInternoMm": 75.4,
+      "clase": "C-15",
+      "precioPorM": 33.9
+    },
+    {
+      "diametroInternoMm": 90.4,
+      "clase": "C-5",
+      "precioPorM": 20.9
+    },
+    {
+      "diametroInternoMm": 90.4,
+      "clase": "C-7.5",
+      "precioPorM": 27.3
+    },
+    {
+      "diametroInternoMm": 90.4,
+      "clase": "C-10",
+      "precioPorM": 33.6
+    },
+    {
+      "diametroInternoMm": 90.4,
+      "clase": "C-15",
+      "precioPorM": 43.7
+    },
+    {
+      "diametroInternoMm": 110,
+      "clase": "C-5",
+      "precioPorM": 27.3
+    },
+    {
+      "diametroInternoMm": 110,
+      "clase": "C-7.5",
+      "precioPorM": 35.8
+    },
+    {
+      "diametroInternoMm": 110,
+      "clase": "C-10",
+      "precioPorM": 44.3
+    },
+    {
+      "diametroInternoMm": 110,
+      "clase": "C-15",
+      "precioPorM": 57.6
+    }
+  ],
+  "emisores": [
+    {
+      "codigo": "gotero-2",
+      "precioUnidad": 0.4
+    },
+    {
+      "codigo": "gotero-pc-1.6",
+      "precioUnidad": 0.7
+    },
+    {
+      "codigo": "cinta-1",
+      "precioUnidad": 0.15
+    },
+    {
+      "codigo": "gotero-4",
+      "precioUnidad": 0.4
+    },
+    {
+      "codigo": "aspersor-3.2",
+      "precioUnidad": 35
+    },
+    {
+      "codigo": "aspersor-4.0",
+      "precioUnidad": 40
+    },
+    {
+      "codigo": "aspersor-4.4",
+      "precioUnidad": 45
+    }
+  ],
+  "accesorios": {
+    "camaraRompePresion": 1200,
+    "valvulaReguladora": 180,
+    "cabezal": 2500
+  },
+  "lateralesDeGoteo": [
+    {
+      "codigo": "cinta-1",
+      "diametroInternoMm": 13.6,
+      "precioPorM": 0.35
+    },
+    {
+      "codigo": "cinta-1",
+      "diametroInternoMm": 16,
+      "precioPorM": 0.5
+    },
+    {
+      "codigo": "cinta-1",
+      "diametroInternoMm": 20,
+      "precioPorM": 0.7
+    },
+    {
+      "codigo": "cinta-1",
+      "diametroInternoMm": 25.4,
+      "precioPorM": 0.9
+    },
+    {
+      "codigo": "gotero-2",
+      "diametroInternoMm": 13.6,
+      "precioPorM": 0.9
+    },
+    {
+      "codigo": "gotero-2",
+      "diametroInternoMm": 16,
+      "precioPorM": 1.3
+    },
+    {
+      "codigo": "gotero-2",
+      "diametroInternoMm": 20,
+      "precioPorM": 1.8
+    },
+    {
+      "codigo": "gotero-2",
+      "diametroInternoMm": 25.4,
+      "precioPorM": 2.4
+    },
+    {
+      "codigo": "gotero-4",
+      "diametroInternoMm": 13.6,
+      "precioPorM": 0.9
+    },
+    {
+      "codigo": "gotero-4",
+      "diametroInternoMm": 16,
+      "precioPorM": 1.3
+    },
+    {
+      "codigo": "gotero-4",
+      "diametroInternoMm": 20,
+      "precioPorM": 1.8
+    },
+    {
+      "codigo": "gotero-4",
+      "diametroInternoMm": 25.4,
+      "precioPorM": 2.4
+    },
+    {
+      "codigo": "gotero-pc-1.6",
+      "diametroInternoMm": 13.6,
+      "precioPorM": 1.25
+    },
+    {
+      "codigo": "gotero-pc-1.6",
+      "diametroInternoMm": 16,
+      "precioPorM": 1.8
+    },
+    {
+      "codigo": "gotero-pc-1.6",
+      "diametroInternoMm": 20,
+      "precioPorM": 2.5
+    },
+    {
+      "codigo": "gotero-pc-1.6",
+      "diametroInternoMm": 25.4,
+      "precioPorM": 3.3
+    }
+  ]
+}

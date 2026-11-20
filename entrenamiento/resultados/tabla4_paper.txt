@@ -1,0 +1,30 @@
+Lugares 5860 · filas lugar-cultivo 13254 · celdas de clima 211 · cultivos 8
+Rasgos: altitudM, temperaturaMediaAnualC, minimaDelMesMasFrioC, et0MediaMmDia, lluviaAnualMm, phDelSuelo, texturaGruesa
+
+Estrategia                  Primera cosechada  Cosechas entre las tres   Ventaja del bosque en la primera (IC 95 %)   Ventaja entre las tres (IC 95 %)
+Bosque con datos reales                 88.2%                    83.8%   —
+Tabla por altitud                       86.4%                    83.0%    +1.8 pp ( +0.6 a  +3.3)             +0.8 pp ( -0.5 a  +2.2)
+Cultivo más común                       66.0%                    81.1%   +22.2 pp (+18.0 a +26.4)             +2.7 pp ( +1.2 a  +4.3)
+Regla del catálogo                      41.5%                    43.3%   +46.8 pp (+43.0 a +50.4)            +40.6 pp (+35.4 a +45.1)
+Bosque sintético previo                 21.8%                    44.6%   +66.5 pp (+62.8 a +70.1)            +39.2 pp (+33.2 a +45.8)
+
+La regla del catálogo declara sin cultivo apto el 16.5 % de los lugares.
+
+Primera cosechada por pliegue (media ± desviación estándar de los 5 pliegues):
+  Bosque con datos reales     88.1 ±  2.4   ['90.0', '90.5', '88.6', '84.7', '86.8']
+  Tabla por altitud           86.2 ±  3.1   ['90.2', '86.2', '88.1', '82.2', '84.6']
+  Cultivo más común           66.2 ±  6.5   ['67.0', '72.7', '62.6', '57.0', '71.6']
+  Regla del catálogo          41.8 ±  4.7   ['42.0', '37.4', '36.9', '47.8', '45.0']
+  Bosque sintético previo     21.9 ±  2.7   ['20.9', '19.7', '20.2', '22.5', '26.4']
+
+Cosechas registradas en los lugares del conjunto: 49979
+Primera sugerencia del bosque, por cultivo: Maíz, grano 56.9 %, Papa 40.2 %, Avena 2.9 %
+Parte de las cosechas de cada cultivo que queda entre las tres sugerencias del bosque:
+  Arveja, verde         19.2 %  de 874 cosechas
+  Avena                 77.0 %  de 6332 cosechas
+  Cebada                55.0 %  de 4023 cosechas
+  Haba, grano seco      30.7 %  de 3288 cosechas
+  Haba, verde            7.8 %  de 1029 cosechas
+  Maíz, grano           96.1 %  de 16806 cosechas
+  Papa                 100.0 %  de 17392 cosechas
+  Zanahoria              3.4 %  de 235 cosechas

@@ -1,0 +1,437 @@
+{
+  "version": "ejemplo",
+  "items": [
+    {
+      "codigo": "A01",
+      "forma": "A",
+      "concepcionErronea": "CE1",
+      "nivelCognitivo": "analizar",
+      "enunciado": "Ítem de ejemplo de la forma A para CE1. Muestra el formato; no es un ítem del instrumento.",
+      "alternativas": [
+        {
+          "letra": "a",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "b",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "c",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "d",
+          "texto": "Alternativa de ejemplo"
+        }
+      ],
+      "clave": "a",
+      "juicios": []
+    },
+    {
+      "codigo": "B01",
+      "forma": "B",
+      "concepcionErronea": "CE1",
+      "nivelCognitivo": "analizar",
+      "enunciado": "Ítem de ejemplo de la forma B para CE1. Muestra el formato; no es un ítem del instrumento.",
+      "alternativas": [
+        {
+          "letra": "a",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "b",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "c",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "d",
+          "texto": "Alternativa de ejemplo"
+        }
+      ],
+      "clave": "a",
+      "juicios": []
+    },
+    {
+      "codigo": "A02",
+      "forma": "A",
+      "concepcionErronea": "CE2",
+      "nivelCognitivo": "analizar",
+      "enunciado": "Ítem de ejemplo de la forma A para CE2. Muestra el formato; no es un ítem del instrumento.",
+      "alternativas": [
+        {
+          "letra": "a",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "b",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "c",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "d",
+          "texto": "Alternativa de ejemplo"
+        }
+      ],
+      "clave": "a",
+      "juicios": []
+    },
+    {
+      "codigo": "B02",
+      "forma": "B",
+      "concepcionErronea": "CE2",
+      "nivelCognitivo": "analizar",
+      "enunciado": "Ítem de ejemplo de la forma B para CE2. Muestra el formato; no es un ítem del instrumento.",
+      "alternativas": [
+        {
+          "letra": "a",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "b",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "c",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "d",
+          "texto": "Alternativa de ejemplo"
+        }
+      ],
+      "clave": "a",
+      "juicios": []
+    },
+    {
+      "codigo": "A03",
+      "forma": "A",
+      "concepcionErronea": "CE3",
+      "nivelCognitivo": "analizar",
+      "enunciado": "Ítem de ejemplo de la forma A para CE3. Muestra el formato; no es un ítem del instrumento.",
+      "alternativas": [
+        {
+          "letra": "a",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "b",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "c",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "d",
+          "texto": "Alternativa de ejemplo"
+        }
+      ],
+      "clave": "a",
+      "juicios": []
+    },
+    {
+      "codigo": "B03",
+      "forma": "B",
+      "concepcionErronea": "CE3",
+      "nivelCognitivo": "analizar",
+      "enunciado": "Ítem de ejemplo de la forma B para CE3. Muestra el formato; no es un ítem del instrumento.",
+      "alternativas": [
+        {
+          "letra": "a",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "b",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "c",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "d",
+          "texto": "Alternativa de ejemplo"
+        }
+      ],
+      "clave": "a",
+      "juicios": []
+    },
+    {
+      "codigo": "A04",
+      "forma": "A",
+      "concepcionErronea": "CE4",
+      "nivelCognitivo": "analizar",
+      "enunciado": "Ítem de ejemplo de la forma A para CE4. Muestra el formato; no es un ítem del instrumento.",
+      "alternativas": [
+        {
+          "letra": "a",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "b",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "c",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "d",
+          "texto": "Alternativa de ejemplo"
+        }
+      ],
+      "clave": "a",
+      "juicios": []
+    },
+    {
+      "codigo": "B04",
+      "forma": "B",
+      "concepcionErronea": "CE4",
+      "nivelCognitivo": "analizar",
+      "enunciado": "Ítem de ejemplo de la forma B para CE4. Muestra el formato; no es un ítem del instrumento.",
+      "alternativas": [
+        {
+          "letra": "a",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "b",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "c",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "d",
+          "texto": "Alternativa de ejemplo"
+        }
+      ],
+      "clave": "a",
+      "juicios": []
+    },
+    {
+      "codigo": "A05",
+      "forma": "A",
+      "concepcionErronea": "CE5",
+      "nivelCognitivo": "analizar",
+      "enunciado": "Ítem de ejemplo de la forma A para CE5. Muestra el formato; no es un ítem del instrumento.",
+      "alternativas": [
+        {
+          "letra": "a",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "b",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "c",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "d",
+          "texto": "Alternativa de ejemplo"
+        }
+      ],
+      "clave": "a",
+      "juicios": []
+    },
+    {
+      "codigo": "B05",
+      "forma": "B",
+      "concepcionErronea": "CE5",
+      "nivelCognitivo": "analizar",
+      "enunciado": "Ítem de ejemplo de la forma B para CE5. Muestra el formato; no es un ítem del instrumento.",
+      "alternativas": [
+        {
+          "letra": "a",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "b",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "c",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "d",
+          "texto": "Alternativa de ejemplo"
+        }
+      ],
+      "clave": "a",
+      "juicios": []
+    },
+    {
+      "codigo": "A06",
+      "forma": "A",
+      "concepcionErronea": "CE6",
+      "nivelCognitivo": "analizar",
+      "enunciado": "Ítem de ejemplo de la forma A para CE6. Muestra el formato; no es un ítem del instrumento.",
+      "alternativas": [
+        {
+          "letra": "a",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "b",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "c",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "d",
+          "texto": "Alternativa de ejemplo"
+        }
+      ],
+      "clave": "a",
+      "juicios": []
+    },
+    {
+      "codigo": "B06",
+      "forma": "B",
+      "concepcionErronea": "CE6",
+      "nivelCognitivo": "analizar",
+      "enunciado": "Ítem de ejemplo de la forma B para CE6. Muestra el formato; no es un ítem del instrumento.",
+      "alternativas": [
+        {
+          "letra": "a",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "b",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "c",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "d",
+          "texto": "Alternativa de ejemplo"
+        }
+      ],
+      "clave": "a",
+      "juicios": []
+    },
+    {
+      "codigo": "A07",
+      "forma": "A",
+      "concepcionErronea": "CE7",
+      "nivelCognitivo": "analizar",
+      "enunciado": "Ítem de ejemplo de la forma A para CE7. Muestra el formato; no es un ítem del instrumento.",
+      "alternativas": [
+        {
+          "letra": "a",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "b",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "c",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "d",
+          "texto": "Alternativa de ejemplo"
+        }
+      ],
+      "clave": "a",
+      "juicios": []
+    },
+    {
+      "codigo": "B07",
+      "forma": "B",
+      "concepcionErronea": "CE7",
+      "nivelCognitivo": "analizar",
+      "enunciado": "Ítem de ejemplo de la forma B para CE7. Muestra el formato; no es un ítem del instrumento.",
+      "alternativas": [
+        {
+          "letra": "a",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "b",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "c",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "d",
+          "texto": "Alternativa de ejemplo"
+        }
+      ],
+      "clave": "a",
+      "juicios": []
+    },
+    {
+      "codigo": "A08",
+      "forma": "A",
+      "concepcionErronea": "CE8",
+      "nivelCognitivo": "analizar",
+      "enunciado": "Ítem de ejemplo de la forma A para CE8. Muestra el formato; no es un ítem del instrumento.",
+      "alternativas": [
+        {
+          "letra": "a",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "b",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "c",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "d",
+          "texto": "Alternativa de ejemplo"
+        }
+      ],
+      "clave": "a",
+      "juicios": []
+    },
+    {
+      "codigo": "B08",
+      "forma": "B",
+      "concepcionErronea": "CE8",
+      "nivelCognitivo": "analizar",
+      "enunciado": "Ítem de ejemplo de la forma B para CE8. Muestra el formato; no es un ítem del instrumento.",
+      "alternativas": [
+        {
+          "letra": "a",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "b",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "c",
+          "texto": "Alternativa de ejemplo"
+        },
+        {
+          "letra": "d",
+          "texto": "Alternativa de ejemplo"
+        }
+      ],
+      "clave": "a",
+      "juicios": []
+    }
+  ]
+}

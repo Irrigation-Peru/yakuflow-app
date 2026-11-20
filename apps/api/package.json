@@ -1,0 +1,51 @@
+{
+  "name": "@riego/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "API de la aplicación: cuentas, consentimiento, pruebas, proyectos, registro de actividad y caché de los servicios externos.",
+  "scripts": {
+    "postinstall": "prisma generate",
+    "dev": "tsx watch src/servidor.ts",
+    "start": "tsx src/servidor.ts",
+    "generar": "prisma generate",
+    "migrar": "prisma migrate deploy",
+    "preparar-bd": "sh ../../herramientas/docker/preparar-bd.sh",
+    "cargar-banco": "tsx src/instrumento/cargar-banco.ts",
+    "cargar-catalogo": "tsx src/herramientas/cargar-catalogo.ts",
+    "exportar": "tsx src/registro/exportar.ts",
+    "test": "vitest run",
+    "tipos": "tsc -p tsconfig.json",
+    "bd-local": "tsx src/herramientas/bd-local.ts",
+    "servidor-de-prueba": "tsx src/herramientas/servidor-de-prueba.ts"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "7.10.0",
+    "@prisma/client": "7.10.0",
+    "@riego/calculo": "workspace:*",
+    "bcryptjs": "3.0.3",
+    "cookie-parser": "1.4.7",
+    "express": "5.2.1",
+    "express-rate-limit": "8.7.1",
+    "helmet": "8.3.0",
+    "jose": "6.2.12",
+    "pg": "8.23.1",
+    "pino": "10.4.0",
+    "pino-http": "11.0.0",
+    "tsx": "4.23.15",
+    "zod": "4.6.5"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "0.5.8",
+    "@electric-sql/pglite-socket": "0.2.11",
+    "@types/cookie-parser": "1.4.10",
+    "@types/express": "5.0.6",
+    "@types/node": "24.19.1",
+    "@types/pg": "8.23.1",
+    "@types/supertest": "7.2.1",
+    "prisma": "7.10.0",
+    "supertest": "7.3.1",
+    "swagger-ui-dist": "5.33.3",
+    "vitest": "5.0.3"
+  }
+}

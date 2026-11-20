@@ -1,0 +1,7 @@
+
+== sustituto-contraste.jsonl: 60 redes, presupuesto medio 15.6 de 136.6
+  modelo        útiles  66.6 %  pasan  78.5 %  mejor ahorro  7.3 %
+  reglaExperta  útiles  46.2 %  pasan  84.2 %  mejor ahorro  7.3 %
+  alAzar        útiles  34.1 %  pasan  64.8 %  mejor ahorro  5.5 %
+  modelo − alAzar       +32.5 pp [+26.5; +38.5]  d = 1.40  p = 6.2e-11  gana en 57 de 60
+  modelo − reglaExperta +20.3 pp [+15.9; +24.8]  d = 1.18  p = 3.4e-09  gana en 53 de 60

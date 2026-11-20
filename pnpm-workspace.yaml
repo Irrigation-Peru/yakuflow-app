@@ -1,0 +1,18 @@
+packages:
+  - packages/*
+  - apps/*
+  - herramientas/verificacion
+  - herramientas/redes
+
+# Dependencias a las que se les permite correr su script de instalación: esbuild (lo usa tsx) y Prisma
+# descargan ahí sus binarios.
+allowBuilds:
+  esbuild: true
+  prisma: true
+  '@prisma/engines': true
+  # Lo trae onnxruntime-web; su script solo revisa versiones y no hace falta para cargar los modelos.
+  protobufjs: false
+  # Lo trae swagger-ui-dist; su script manda estadísticas de la instalación a un tercero.
+  '@scarf/scarf': false
+  # Lo trae jsPDF (por canvg); su script solo imprime un pedido de donación.
+  core-js: false

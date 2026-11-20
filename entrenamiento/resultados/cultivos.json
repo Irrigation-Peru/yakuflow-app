@@ -1,0 +1,214 @@
+{
+  "version": "ena2024-3e862811",
+  "datos": {
+    "archivo": "ena2024_sitio_cultivo.csv",
+    "sha256": "3e862811ea4b5a9606ed91567d903c6fcd4ee111e623372f2c1bdd66e2b0888b",
+    "filas": 13254,
+    "lugares": 5860,
+    "zonas": 211,
+    "clases": [
+      "Arveja, verde",
+      "Avena",
+      "Cebada",
+      "Haba, grano seco",
+      "Haba, verde",
+      "Maíz, grano",
+      "Papa",
+      "Zanahoria"
+    ]
+  },
+  "semilla": 20261106,
+  "hiperparametros": {
+    "n_estimators": 30,
+    "max_depth": 10,
+    "min_samples_leaf": 10
+  },
+  "evaluacion": {
+    "modelo": {
+      "exactitudTop3": {
+        "media": 0.8428745481803415,
+        "minimo": 0.8145611632072489,
+        "maximo": 0.8820924724539182
+      },
+      "exactitudTop3SinPeso": {
+        "media": 0.7538872479591183,
+        "minimo": 0.7148245944926442,
+        "maximo": 0.7880045265937382
+      },
+      "f1Macro": {
+        "media": 0.18182273262540377,
+        "minimo": 0.1664049565656856,
+        "maximo": 0.19233267210376173
+      },
+      "f1MacroSinPeso": {
+        "media": 0.14286793003586679,
+        "minimo": 0.12800966406040504,
+        "maximo": 0.15108056725448132
+      },
+      "primeroSeCosechaEnElLugar": {
+        "media": 0.8823469891941016,
+        "minimo": 0.8712702472293266,
+        "maximo": 0.8982084690553745
+      }
+    },
+    "lineaBaseRegion": {
+      "exactitudTop3": {
+        "media": 0.8109633917852858,
+        "minimo": 0.7821093667685175,
+        "maximo": 0.8374009178139341
+      },
+      "exactitudTop3SinPeso": {
+        "media": 0.6949621289225141,
+        "minimo": 0.6642776310826103,
+        "maximo": 0.7230188679245283
+      },
+      "f1Macro": {
+        "media": 0.09994476620031449,
+        "minimo": 0.09246442392058105,
+        "maximo": 0.1047476413510044
+      },
+      "f1MacroSinPeso": {
+        "media": 0.10621307897532437,
+        "minimo": 0.1036906298701733,
+        "maximo": 0.10919709221596013
+      },
+      "primeroSeCosechaEnElLugar": {
+        "media": 0.8013201861711823,
+        "minimo": 0.7817589576547231,
+        "maximo": 0.8325581395348837
+      }
+    },
+    "tablaPorAltitud": {
+      "exactitudTop3": {
+        "media": 0.8314256818479265,
+        "minimo": 0.7932778421662627,
+        "maximo": 0.8611806424697539
+      },
+      "exactitudTop3SinPeso": {
+        "media": 0.7333657217283616,
+        "minimo": 0.6982270841192003,
+        "maximo": 0.7626415094339623
+      },
+      "f1Macro": {
+        "media": 0.14481326501053926,
+        "minimo": 0.14049911459654957,
+        "maximo": 0.14909860650165532
+      },
+      "f1MacroSinPeso": {
+        "media": 0.11787162590084314,
+        "minimo": 0.11173499155535084,
+        "maximo": 0.12397643275977632
+      },
+      "primeroSeCosechaEnElLugar": {
+        "media": 0.8636831347859502,
+        "minimo": 0.8511627906976744,
+        "maximo": 0.8737785016286646
+      }
+    }
+  },
+  "porRegion": {
+    "Costa": {
+      "modelo": {
+        "exactitudTop3": 0.9693227091633466,
+        "exactitudTop3SinPeso": 0.9518348623853211,
+        "f1Macro": 0.16639566606135747,
+        "f1MacroSinPeso": 0.14156525018199975,
+        "primeroSeCosechaEnElLugar": 0.8076358296622613,
+        "filas": 872,
+        "lugares": 681
+      },
+      "lineaBaseRegion": {
+        "exactitudTop3": 0.9733067729083665,
+        "exactitudTop3SinPeso": 0.9529816513761468,
+        "f1Macro": 0.1016548463356974,
+        "f1MacroSinPeso": 0.09064327485380116,
+        "primeroSeCosechaEnElLugar": 0.7283406754772394,
+        "filas": 872,
+        "lugares": 681
+      },
+      "tablaPorAltitud": {
+        "exactitudTop3": 0.9741035856573705,
+        "exactitudTop3SinPeso": 0.9552752293577982,
+        "f1Macro": 0.1016548463356974,
+        "f1MacroSinPeso": 0.09064327485380116,
+        "primeroSeCosechaEnElLugar": 0.7283406754772394,
+        "filas": 872,
+        "lugares": 681
+      }
+    },
+    "Selva": {
+      "modelo": {
+        "exactitudTop3": 0.9903248099516241,
+        "exactitudTop3SinPeso": 0.9839786381842457,
+        "f1Macro": 0.13069794847072688,
+        "f1MacroSinPeso": 0.12517415068052726,
+        "primeroSeCosechaEnElLugar": 0.8998459167950693,
+        "filas": 749,
+        "lugares": 649
+      },
+      "lineaBaseRegion": {
+        "exactitudTop3": 0.9896337249481686,
+        "exactitudTop3SinPeso": 0.9839786381842457,
+        "f1Macro": 0.13069794847072688,
+        "f1MacroSinPeso": 0.12517415068052726,
+        "primeroSeCosechaEnElLugar": 0.8998459167950693,
+        "filas": 749,
+        "lugares": 649
+      },
+      "tablaPorAltitud": {
+        "exactitudTop3": 0.9923980649619903,
+        "exactitudTop3SinPeso": 0.986648865153538,
+        "f1Macro": 0.13069794847072688,
+        "f1MacroSinPeso": 0.12517415068052726,
+        "primeroSeCosechaEnElLugar": 0.8998459167950693,
+        "filas": 749,
+        "lugares": 649
+      }
+    },
+    "Sierra": {
+      "modelo": {
+        "exactitudTop3": 0.8319933944635175,
+        "exactitudTop3SinPeso": 0.7242327860397146,
+        "f1Macro": 0.1775329016793528,
+        "f1MacroSinPeso": 0.13355848376912718,
+        "primeroSeCosechaEnElLugar": 0.8913907284768212,
+        "filas": 11633,
+        "lugares": 4530
+      },
+      "lineaBaseRegion": {
+        "exactitudTop3": 0.7972056842379731,
+        "exactitudTop3SinPeso": 0.6570102295194705,
+        "f1Macro": 0.06595322647726909,
+        "f1MacroSinPeso": 0.05922002099186565,
+        "primeroSeCosechaEnElLugar": 0.7971302428256071,
+        "filas": 11633,
+        "lugares": 4530
+      },
+      "tablaPorAltitud": {
+        "exactitudTop3": 0.8192603537438616,
+        "exactitudTop3SinPeso": 0.7004212155076077,
+        "f1Macro": 0.14143981687397988,
+        "f1MacroSinPeso": 0.1108367941631221,
+        "primeroSeCosechaEnElLugar": 0.8792494481236203,
+        "filas": 11633,
+        "lugares": 4530
+      }
+    }
+  },
+  "superaLaLineaBase": {
+    "exactitudTop3": true,
+    "f1Macro": true,
+    "primeroSeCosechaEnElLugar": true
+  },
+  "pesoDelOnnxKb": 1191,
+  "diferenciaMaximaConOnnx": 1.1595934212849102e-07,
+  "importanciaDeRasgos": {
+    "altitudM": 0.2794611345347003,
+    "temperaturaMediaAnualC": 0.2546288998925693,
+    "minimaDelMesMasFrioC": 0.15335165681293103,
+    "et0MediaMmDia": 0.1251275721036001,
+    "lluviaAnualMm": 0.0990305523657356,
+    "phDelSuelo": 0.08619817421834818,
+    "texturaGruesa": 0.002202010072115747
+  }
+}

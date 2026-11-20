@@ -1,0 +1,21 @@
+{
+  "name": "@riego/verificacion",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Verificación del módulo de cálculo contra tres fuentes independientes (HU0004).",
+  "scripts": {
+    "verificar": "tsx src/tabla.ts",
+    "test": "vitest run",
+    "tipos": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@riego/calculo": "workspace:*",
+    "epanet-js": "0.9.0"
+  },
+  "devDependencies": {
+    "@types/node": "24.19.1",
+    "tsx": "4.23.15",
+    "vitest": "5.0.3"
+  }
+}

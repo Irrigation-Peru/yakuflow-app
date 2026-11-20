@@ -1,0 +1,23 @@
+{
+  "name": "@riego/redes",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Genera con el módulo de cálculo el conjunto de redes evaluadas para entrenar el modelo sustituto, y mide las propuestas de punta a punta (HU0025, HU0026).",
+  "scripts": {
+    "generar": "tsx src/generar.ts",
+    "evaluar": "tsx src/evaluar.ts",
+    "test": "vitest run",
+    "tipos": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@riego/calculo": "workspace:*",
+    "@riego/modelos": "workspace:*",
+    "onnxruntime-web": "1.30.0"
+  },
+  "devDependencies": {
+    "@types/node": "24.19.1",
+    "tsx": "4.23.15",
+    "vitest": "5.0.3"
+  }
+}

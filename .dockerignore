@@ -1,0 +1,30 @@
+# Lo que nunca entra a una imagen. Primero lo que no puede salir de la máquina: claves y datos de estudiantes
+# (Ley N.º 29733).
+**/.env
+**/.env.*
+datos-validacion/
+**/*.sav
+**/respuestas_*
+
+# Lo que cada imagen instala o genera por su cuenta.
+**/node_modules
+**/dist
+apps/api/src/generado/
+apps/api/.bd-local/
+apps/web/test-results/
+apps/web/playwright-report/
+packages/modelos/entrenamiento/.venv/
+packages/modelos/entrenamiento/datos/
+**/__pycache__
+
+# La documentación del proyecto y lo local del entorno de trabajo.
+.git
+.github/
+.claude/
+CLAUDE.md
+diagramas/
+documentos/
+gestion/
+lineamientos/
+por-revisar/
+prototipo/

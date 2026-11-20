@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: "If you use this software or data, please cite it as below."
+title: "YakuFlow: web application, models and data for cropping-season project formulation"
+type: software
+license: MIT
+version: "2.8"
+date-released: "2026-11-20"
+repository-code: "https://github.com/Irrigation-Peru/yakuflow-app"
+keywords:
+  - irrigation network design
+  - surrogate model
+  - random forest
+  - decision support systems
+  - engineering education
+authors:
+  - family-names: "Tongo Alejandro"
+    given-names: "Milagros S."
+    orcid: "https://orcid.org/0009-0004-2845-946X"
+    affiliation: "Universidad Peruana de Ciencias Aplicadas"
+  - family-names: "Sosa Colca"
+    given-names: "Angello R."
+    orcid: "https://orcid.org/0009-0002-5310-5386"
+    affiliation: "Universidad Peruana de Ciencias Aplicadas"
+  - family-names: "Rosales Caururu"
+    given-names: "Abel N."
+    orcid: "https://orcid.org/0000-0002-5331-1772"
+    affiliation: "Universidad Peruana de Ciencias Aplicadas"

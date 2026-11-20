@@ -1,0 +1,71 @@
+# Integración continua (HU0001). Corre en cada PR y en cada push a main: si algo falla, el PR no se fusiona.
+# La protección de la rama main (exigir que pasen estos dos trabajos) se activa en la configuración de GitHub.
+
+name: integracion
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # Las pruebas de punta a punta levantan los servidores con «corepack pnpm»: que no pregunte antes de descargar.
+  COREPACK_ENABLE_DOWNLOAD_PROMPT: '0'
+
+jobs:
+  verificar:
+    name: Límites, tipos, pruebas y verificación del módulo de cálculo
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+      # La versión de pnpm sale de «packageManager» en package.json.
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      - name: El módulo de cálculo no importa nada de afuera y las pantallas no tienen fórmulas
+        run: pnpm limites
+      - run: pnpm lint
+      - run: pnpm tipos
+      - run: pnpm test
+
+      - name: Verificación contra el método normalizado, FAO 56 y EPANET (HU0004)
+        run: pnpm verificar
+      - name: La tabla del repositorio es la que produce el código
+        run: git diff --exit-code -- herramientas/verificacion/resultados
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tabla-de-verificacion
+          path: herramientas/verificacion/resultados
+
+  punta-a-punta:
+    name: Recorrido en el navegador
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @riego/web exec playwright install --with-deps chromium
+      - run: pnpm --filter @riego/web e2e
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: rastro-de-playwright
+          path: apps/web/test-results

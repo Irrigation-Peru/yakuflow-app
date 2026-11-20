@@ -1,0 +1,35 @@
+# Sitio web en Render (sitio estático). La API y la base van en Railway (railway.json).
+# Render arma la dirección pública con el nombre del servicio cuando se crea, y no la cambia después: este servicio
+# queda en https://yakuflow.onrender.com (el nombre estaba libre al 16/11/2026). Al crearlo, VITE_API se completa en
+# Render con la dirección pública de la API, sin /api al final; y en Railway, ORIGEN_WEB pasa a ser la dirección de
+# este sitio, que es el único origen al que la API deja pasar.
+
+services:
+  - type: web
+    runtime: static
+    name: yakuflow
+    branch: feat/deploypruebita
+    # Solo la web y lo que ella usa (el módulo de cálculo): la API no se instala aquí.
+    buildCommand: corepack pnpm install --frozen-lockfile --filter @riego/web... && corepack pnpm --filter @riego/web build
+    staticPublishPath: apps/web/dist
+    envVars:
+      - key: NODE_VERSION
+        value: 24.11.1
+      - key: COREPACK_ENABLE_DOWNLOAD_PROMPT
+        value: '0'
+      - key: VITE_API
+        sync: false
+    headers:
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: X-Frame-Options
+        value: DENY
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      # Los archivos de Vite llevan su huella en el nombre: se pueden guardar un año. index.html no.
+      - path: /assets/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable

@@ -1,0 +1,92 @@
+{
+  "nombre": "sustituto",
+  "version": "redes-dbfa09a9",
+  "rasgos": [
+    "costo",
+    "uniformidad",
+    "margenM",
+    "caudalMaximoLps",
+    "turnos",
+    "presionNominalM",
+    "exponenteEmisor",
+    "conduccion_longitudM",
+    "conduccion_diametroMm",
+    "conduccion_velocidadMaximaMs",
+    "conduccion_perdidaM",
+    "conduccion_holguraDeClaseM",
+    "conduccion_presionMaximaM",
+    "conduccion_pasosDeDiametro",
+    "conduccion_pasosDeClase",
+    "portalateral_longitudM",
+    "portalateral_diametroMm",
+    "portalateral_velocidadMaximaMs",
+    "portalateral_perdidaM",
+    "portalateral_holguraDeClaseM",
+    "portalateral_presionMaximaM",
+    "portalateral_pasosDeDiametro",
+    "portalateral_pasosDeClase",
+    "valvulas_longitudM",
+    "valvulas_diametroMm",
+    "valvulas_velocidadMaximaMs",
+    "valvulas_perdidaM",
+    "valvulas_holguraDeClaseM",
+    "valvulas_presionMaximaM",
+    "valvulas_pasosDeDiametro",
+    "valvulas_pasosDeClase",
+    "laterales_longitudM",
+    "laterales_diametroMm",
+    "laterales_velocidadMaximaMs",
+    "laterales_perdidaM",
+    "laterales_holguraDeClaseM",
+    "laterales_presionMaximaM",
+    "laterales_pasosDeDiametro",
+    "laterales_pasosDeClase"
+  ],
+  "salidas": [
+    "costoPct",
+    "uniformidad",
+    "margenM",
+    "funciona"
+  ],
+  "metricas": {
+    "validacion": "Cruzada por red, 5 particiones, sobre redes no vistas",
+    "errores": {
+      "costoPct": {
+        "errorMedioAbsoluto": 2.310116679595865,
+        "errorDeEstimarSiempreLaMedia": 6.74562473939209,
+        "r2": 0.8335100191481873
+      },
+      "uniformidad": {
+        "errorMedioAbsoluto": 2.1193143479423653,
+        "errorDeEstimarSiempreLaMedia": 5.4960634933654795,
+        "r2": 0.6731632678802264
+      },
+      "margenM": {
+        "errorMedioAbsoluto": 0.9303048846491733,
+        "errorDeEstimarSiempreLaMedia": 2.2673150524841286,
+        "r2": 0.7231114391816063
+      },
+      "funciona": {
+        "errorMedioAbsoluto": 0.2502359909660656,
+        "errorDeEstimarSiempreLaMedia": 0.45531591796875,
+        "r2": 0.475044492309154
+      }
+    },
+    "areaBajoLaCurvaDeFunciona": 0.8912374670626232,
+    "correlacionDentroDeCadaRed": {
+      "costoPct": 0.917294744151971,
+      "uniformidad": 0.8874910260536049,
+      "margenM": 0.8602377668697847
+    },
+    "partFuncionan": 0.6496875,
+    "hiperparametros": {
+      "n_estimators": 30,
+      "max_depth": 11,
+      "min_samples_leaf": 5
+    },
+    "diferenciaMaximaConOnnx": 2.1551201115244112e-05
+  },
+  "conjunto": "400 redes de ejemplo generadas por el módulo de cálculo, con 6400 modificaciones medidas. El costo sale de precios provisionales: con el catálogo real hay que volver a generar y entrenar.",
+  "entrenadoEn": "2026-11-16T22:13:14+00:00",
+  "archivo": "sustituto.onnx"
+}

@@ -1,0 +1,636 @@
+// Modelo físico de la base de datos (diagramas/modelo-datos.drawio). Tablas y columnas en snake_case, como
+// en el diagrama; en el código, los nombres de Prisma en camelCase.
+//
+// Desviación del diagrama: fuente_agua lleva lat y lon. HU0005 pide ubicar la fuente en el mapa y medir el
+// desnivel hasta la parcela, y el diagrama no guardaba dónde está.
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generado/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ---------------------------------------------------------------- Catálogos y servicios
+
+enum Servicio {
+  mapa
+  elevacion
+  suelo
+  clima
+  agua
+}
+
+model CacheServicioExterno {
+  id            String   @id @default(uuid()) @db.Uuid
+  servicio      Servicio
+  claveConsulta String   @map("clave_consulta")
+  respuesta     Json
+  obtenidoEn    DateTime @default(now()) @map("obtenido_en")
+  expiraEn      DateTime @map("expira_en")
+
+  @@unique([servicio, claveConsulta])
+  @@map("cache_servicio_externo")
+}
+
+model Cultivo {
+  id                     String                 @id @default(uuid()) @db.Uuid
+  nombre                 String                 @unique
+  familia                String?
+  kcInicial              Float                  @map("kc_inicial")
+  kcMedio                Float                  @map("kc_medio")
+  kcFinal                Float                  @map("kc_final")
+  diasPorEtapa           Json                   @map("dias_por_etapa")
+  profundidadRadicularCm Float                  @map("profundidad_radicular_cm")
+  toleranciaSalinidadDsM Float?                 @map("tolerancia_salinidad_ds_m")
+  altitudMinMsnm         Float?                 @map("altitud_min_msnm")
+  altitudMaxMsnm         Float?                 @map("altitud_max_msnm")
+  tempMinC               Float?                 @map("temp_min_c")
+  tempMaxC               Float?                 @map("temp_max_c")
+  fuenteDato             String                 @map("fuente_dato")
+  recomendaciones        RecomendacionCultivo[]
+  campanias              Campania[]
+
+  @@map("cultivo")
+}
+
+enum TipoEmisor {
+  gotero
+  aspersor
+}
+
+model EmisorCatalogo {
+  id                String             @id @default(uuid()) @db.Uuid
+  /// El código del emisor en el catálogo del módulo de cálculo, que es de donde se carga esta tabla.
+  codigo            String             @unique
+  nombre            String
+  tipo              TipoEmisor
+  caudalNominalLph  Float              @map("caudal_nominal_lph")
+  presionNominalMca Float              @map("presion_nominal_mca")
+  coeficienteK      Float              @map("coeficiente_k")
+  exponenteX        Float              @map("exponente_x")
+  cvFabricacion     Float?             @map("cv_fabricacion")
+  precioUnitario    Decimal?           @map("precio_unitario") @db.Decimal(12, 2)
+  proveedor         String?
+  disenos           DisenoAgronomico[]
+
+  @@map("emisor_catalogo")
+}
+
+enum NombreModelo {
+  cultivos
+  optimizacion
+}
+
+model ModeloMl {
+  id                    String                 @id @default(uuid()) @db.Uuid
+  nombre                NombreModelo
+  version               String
+  metricas              Json
+  conjuntoEntrenamiento String                 @map("conjunto_entrenamiento")
+  entrenadoEn           DateTime               @map("entrenado_en")
+  archivoUri            String                 @map("archivo_uri")
+  recomendaciones       RecomendacionCultivo[]
+  alternativas          AlternativaMl[]
+
+  @@unique([nombre, version])
+  @@map("modelo_ml")
+}
+
+model TuberiaCatalogo {
+  id                       String   @id @default(uuid()) @db.Uuid
+  material                 String
+  diametroNominalMm        Float    @map("diametro_nominal_mm")
+  diametroInternoMm        Float    @map("diametro_interno_mm")
+  clasePresionPn           String   @map("clase_presion_pn")
+  coeficienteHazenWilliams Float    @map("coeficiente_hazen_williams")
+  precioUnitario           Decimal? @map("precio_unitario") @db.Decimal(12, 2)
+  proveedor                String?
+  vigenteDesde             DateTime @map("vigente_desde") @db.Date
+  tramos                   Tramo[]
+
+  @@map("tuberia_catalogo")
+}
+
+enum Forma {
+  A
+  B
+}
+
+model ItemInstrumento {
+  id                String      @id @default(uuid()) @db.Uuid
+  codigo            String      @unique
+  enunciado         String
+  concepcionErronea String      @map("concepcion_erronea")
+  nivelCognitivo    String      @map("nivel_cognitivo")
+  forma             Forma
+  alternativas      Json
+  clave             String
+  respuestas        Respuesta[]
+
+  @@map("item_instrumento")
+}
+
+// ---------------------------------------------------------------- Estudiante y medición
+
+enum Grupo {
+  control
+  experimental
+}
+
+model Usuario {
+  id                  String           @id @default(uuid()) @db.Uuid
+  correoInstitucional String           @unique @map("correo_institucional")
+  contrasenaHash      String           @map("contrasena_hash")
+  nombres             String
+  codigoCurso         String           @map("codigo_curso")
+  grupo               Grupo?
+  creadoEn            DateTime         @default(now()) @map("creado_en")
+  ultimoAcceso        DateTime?        @map("ultimo_acceso")
+  consentimientos     Consentimiento[]
+  evaluaciones        Evaluacion[]
+  proyectos           Proyecto[]
+  eventos             Evento[]
+
+  @@map("usuario")
+}
+
+model Consentimiento {
+  id           String    @id @default(uuid()) @db.Uuid
+  usuarioId    String    @map("usuario_id") @db.Uuid
+  usuario      Usuario   @relation(fields: [usuarioId], references: [id])
+  versionTexto String    @map("version_texto")
+  aceptadoEn   DateTime  @default(now()) @map("aceptado_en")
+  revocadoEn   DateTime? @map("revocado_en")
+
+  @@map("consentimiento")
+}
+
+enum TipoEvaluacion {
+  entrada
+  salida
+}
+
+model Evaluacion {
+  id          String         @id @default(uuid()) @db.Uuid
+  usuarioId   String         @map("usuario_id") @db.Uuid
+  usuario     Usuario        @relation(fields: [usuarioId], references: [id])
+  tipo        TipoEvaluacion
+  forma       Forma
+  iniciadaEn  DateTime       @default(now()) @map("iniciada_en")
+  terminadaEn DateTime?      @map("terminada_en")
+  puntaje     Float?
+  respuestas  Respuesta[]
+
+  @@unique([usuarioId, tipo])
+  @@map("evaluacion")
+}
+
+model Respuesta {
+  id                 String          @id @default(uuid()) @db.Uuid
+  evaluacionId       String          @map("evaluacion_id") @db.Uuid
+  evaluacion         Evaluacion      @relation(fields: [evaluacionId], references: [id])
+  itemInstrumentoId  String          @map("item_instrumento_id") @db.Uuid
+  itemInstrumento    ItemInstrumento @relation(fields: [itemInstrumentoId], references: [id])
+  alternativaMarcada String          @map("alternativa_marcada")
+  esCorrecta         Boolean         @map("es_correcta")
+  segundos           Int?
+
+  @@unique([evaluacionId, itemInstrumentoId])
+  @@map("respuesta")
+}
+
+/// Registro de actividad. Solo se agrega: la migración le quita UPDATE, DELETE y TRUNCATE al usuario de la
+/// aplicación y además los rechaza con disparadores.
+model Evento {
+  id         BigInt    @id @default(autoincrement())
+  usuarioId  String    @map("usuario_id") @db.Uuid
+  usuario    Usuario   @relation(fields: [usuarioId], references: [id])
+  proyectoId String?   @map("proyecto_id") @db.Uuid
+  proyecto   Proyecto? @relation(fields: [proyectoId], references: [id])
+  paso       Int       @db.SmallInt
+  accion     String
+  detalle    Json      @default("{}")
+  ocurridoEn DateTime  @map("ocurrido_en")
+
+  @@index([usuarioId, ocurridoEn])
+  @@map("evento")
+}
+
+// ---------------------------------------------------------------- Proyecto
+
+model Proyecto {
+  id                        String                 @id @default(uuid()) @db.Uuid
+  usuarioId                 String                 @map("usuario_id") @db.Uuid
+  usuario                   Usuario                @relation(fields: [usuarioId], references: [id])
+  nombre                    String
+  pasoAlcanzado             Int                    @default(1) @map("paso_alcanzado") @db.SmallInt
+  resultadosDesactualizados Json                   @default("[]") @map("resultados_desactualizados")
+  estado                    String                 @default("en_curso")
+  creadoEn                  DateTime               @default(now()) @map("creado_en")
+  actualizadoEn             DateTime               @updatedAt @map("actualizado_en")
+  parcela                   Parcela?
+  fuenteAgua                FuenteAgua?
+  campanias                 Campania[]
+  disenos                   DisenoAgronomico[]
+  redes                     Red[]
+  recomendaciones           RecomendacionCultivo[]
+  alternativas              AlternativaMl[]
+  informes                  Informe[]
+  eventos                   Evento[]
+
+  @@map("proyecto")
+}
+
+/// Un proyecto es una campaña: al cambiar de cultivo o de fecha se actualiza la misma fila, y el registro de
+/// actividad guarda cada cambio.
+model Campania {
+  id               String            @id @default(uuid()) @db.Uuid
+  proyectoId       String            @unique @map("proyecto_id") @db.Uuid
+  proyecto         Proyecto          @relation(fields: [proyectoId], references: [id])
+  cultivoId        String            @map("cultivo_id") @db.Uuid
+  cultivo          Cultivo           @relation(fields: [cultivoId], references: [id])
+  fechaSiembra     DateTime          @map("fecha_siembra") @db.Date
+  duracionDias     Int               @map("duracion_dias")
+  areaSembradaHa   Float             @map("area_sembrada_ha")
+  marcoPlantacionM String?           @map("marco_plantacion_m")
+  numeroPlantas    Int?              @map("numero_plantas")
+  balances         BalanceHidrico[]
+  decisiones       DecisionBalance[]
+
+  @@map("campania")
+}
+
+enum MetodoRiego {
+  goteo
+  aspersion
+}
+
+model DisenoAgronomico {
+  id                    String         @id @default(uuid()) @db.Uuid
+  proyectoId            String         @unique @map("proyecto_id") @db.Uuid
+  proyecto              Proyecto       @relation(fields: [proyectoId], references: [id])
+  metodo                MetodoRiego
+  emisorCatalogoId      String         @map("emisor_catalogo_id") @db.Uuid
+  emisorCatalogo        EmisorCatalogo @relation(fields: [emisorCatalogoId], references: [id])
+  espaciamientoEmisorM  Float          @map("espaciamiento_emisor_m")
+  espaciamientoLateralM Float          @map("espaciamiento_lateral_m")
+  laminaNetaMm          Float          @map("lamina_neta_mm")
+  laminaBrutaMm         Float          @map("lamina_bruta_mm")
+  frecuenciaDias        Int            @map("frecuencia_dias")
+  tiempoRiegoH          Float          @map("tiempo_riego_h")
+  areaMojadaPct         Float?         @map("area_mojada_pct")
+  intensidadMmH         Float          @map("intensidad_mm_h")
+  eficienciaAplicacion  Float          @map("eficiencia_aplicacion")
+  sectores              SectorRiego[]
+
+  @@map("diseno_agronomico")
+}
+
+enum TipoFuente {
+  canal
+  manantial
+  reservorio
+}
+
+enum OrigenDato {
+  campo
+  declarado
+}
+
+model FuenteAgua {
+  id                  String     @id @default(uuid()) @db.Uuid
+  proyectoId          String     @unique @map("proyecto_id") @db.Uuid
+  proyecto            Proyecto   @relation(fields: [proyectoId], references: [id])
+  tipo                TipoFuente
+  caudalLps           Float      @map("caudal_lps")
+  cotaMsnm            Float      @map("cota_msnm")
+  conductividadDsM    Float?     @map("conductividad_ds_m")
+  horasDisponiblesDia Float      @map("horas_disponibles_dia")
+  origenDato          OrigenDato @map("origen_dato")
+  lat                 Float
+  lon                 Float
+
+  @@map("fuente_agua")
+}
+
+model Informe {
+  id         String   @id @default(uuid()) @db.Uuid
+  proyectoId String   @map("proyecto_id") @db.Uuid
+  proyecto   Proyecto @relation(fields: [proyectoId], references: [id])
+  archivoUri String   @map("archivo_uri")
+  hash       String
+  generadoEn DateTime @default(now()) @map("generado_en")
+
+  @@map("informe")
+}
+
+model Parcela {
+  id                String         @id @default(uuid()) @db.Uuid
+  proyectoId        String         @unique @map("proyecto_id") @db.Uuid
+  proyecto          Proyecto       @relation(fields: [proyectoId], references: [id])
+  /// Polígono GeoJSON, coordenadas [lon, lat].
+  poligono          Json
+  areaHa            Float          @map("area_ha")
+  pendienteMediaPct Float?         @map("pendiente_media_pct")
+  altitudMsnm       Float?         @map("altitud_msnm")
+  centroideLat      Float          @map("centroide_lat")
+  centroideLon      Float          @map("centroide_lon")
+  suelos            Suelo[]
+  climas            ClimaMensual[]
+
+  @@map("parcela")
+}
+
+model RecomendacionCultivo {
+  id                    String   @id @default(uuid()) @db.Uuid
+  proyectoId            String   @map("proyecto_id") @db.Uuid
+  proyecto              Proyecto @relation(fields: [proyectoId], references: [id])
+  cultivoId             String   @map("cultivo_id") @db.Uuid
+  cultivo               Cultivo  @relation(fields: [cultivoId], references: [id])
+  orden                 Int      @db.SmallInt
+  probabilidad          Float
+  condicionesParcela    Json     @map("condiciones_parcela")
+  rangosCultivo         Json     @map("rangos_cultivo")
+  variableMasInfluyente String   @map("variable_mas_influyente")
+  explicacion           String
+  modeloMlId            String   @map("modelo_ml_id") @db.Uuid
+  modeloMl              ModeloMl @relation(fields: [modeloMlId], references: [id])
+  generadaEn            DateTime @default(now()) @map("generada_en")
+
+  @@map("recomendacion_cultivo")
+}
+
+enum OrigenRed {
+  modulo
+  ml
+  estudiante
+}
+
+model Red {
+  id             String          @id @default(uuid()) @db.Uuid
+  proyectoId     String          @map("proyecto_id") @db.Uuid
+  proyecto       Proyecto        @relation(fields: [proyectoId], references: [id])
+  version        Int
+  origen         OrigenRed
+  costoTotal     Decimal?        @map("costo_total") @db.Decimal(14, 2)
+  uniformidadPct Float?          @map("uniformidad_pct")
+  presionMinMca  Float?          @map("presion_min_mca")
+  presionMaxMca  Float?          @map("presion_max_mca")
+  verificada     Boolean         @default(false)
+  /// La red tal como la calcula el módulo, los sectores y los cambios del estudiante: con esto se rehace su diseño.
+  definicion     Json
+  sectores       Json
+  cambios        Json            @default("[]")
+  /// Ya funcionó en el paso 6, en todos los turnos y con las válvulas cerradas. Abre el paso 7.
+  funciono       Boolean         @default(false)
+  creadaEn       DateTime        @default(now()) @map("creada_en")
+  nodos          Nodo[]
+  tramos         Tramo[]
+  cabezales      Cabezal[]
+  presupuestos   Presupuesto[]
+  comoBase       AlternativaMl[] @relation("redBase")
+  comoPropuesta  AlternativaMl[] @relation("redPropuesta")
+
+  @@unique([proyectoId, version])
+  @@map("red")
+}
+
+// ---------------------------------------------------------------- Balance, diseño y red
+
+enum Alcanza {
+  si
+  parcial
+  no
+}
+
+model BalanceHidrico {
+  id               String   @id @default(uuid()) @db.Uuid
+  campaniaId       String   @map("campania_id") @db.Uuid
+  campania         Campania @relation(fields: [campaniaId], references: [id])
+  semana           Int      @db.SmallInt
+  etapaCultivo     String   @map("etapa_cultivo")
+  demandaBrutaM3   Float    @map("demanda_bruta_m3")
+  lluviaEfectivaMm Float    @map("lluvia_efectiva_mm")
+  ofertaM3         Float    @map("oferta_m3")
+  deficitM3        Float    @map("deficit_m3")
+  alcanza          Alcanza
+
+  @@unique([campaniaId, semana])
+  @@map("balance_hidrico")
+}
+
+enum SalidaBalance {
+  turnos
+  reservorio
+  menos_area
+  cambio_cultivo
+}
+
+model DecisionBalance {
+  id                  String        @id @default(uuid()) @db.Uuid
+  campaniaId          String        @map("campania_id") @db.Uuid
+  campania            Campania      @relation(fields: [campaniaId], references: [id])
+  salida              SalidaBalance
+  parametros          Json
+  volumenReservorioM3 Float?        @map("volumen_reservorio_m3")
+  areaAjustadaHa      Float?        @map("area_ajustada_ha")
+  decididaEn          DateTime      @default(now()) @map("decidida_en")
+
+  @@map("decision_balance")
+}
+
+model SectorRiego {
+  id                 String           @id @default(uuid()) @db.Uuid
+  disenoAgronomicoId String           @map("diseno_agronomico_id") @db.Uuid
+  disenoAgronomico   DisenoAgronomico @relation(fields: [disenoAgronomicoId], references: [id])
+  nombre             String
+  areaHa             Float            @map("area_ha")
+  caudalLps          Float            @map("caudal_lps")
+  turno              Int              @db.SmallInt
+  duracionH          Float            @map("duracion_h")
+
+  @@map("sector_riego")
+}
+
+model AlternativaMl {
+  id                    String   @id @default(uuid()) @db.Uuid
+  proyectoId            String   @map("proyecto_id") @db.Uuid
+  proyecto              Proyecto @relation(fields: [proyectoId], references: [id])
+  redBaseId             String   @map("red_base_id") @db.Uuid
+  redBase               Red      @relation("redBase", fields: [redBaseId], references: [id])
+  redPropuestaId        String   @map("red_propuesta_id") @db.Uuid
+  redPropuesta          Red      @relation("redPropuesta", fields: [redPropuestaId], references: [id])
+  modeloMlId            String   @map("modelo_ml_id") @db.Uuid
+  modeloMl              ModeloMl @relation(fields: [modeloMlId], references: [id])
+  criterioMejorado      String   @map("criterio_mejorado")
+  deltaCosto            Float    @map("delta_costo")
+  deltaUniformidad      Float    @map("delta_uniformidad")
+  deltaMargenPresion    Float    @map("delta_margen_presion")
+  cambiosPorTramo       Json     @map("cambios_por_tramo")
+  verificadaPorModulo   Boolean  @map("verificada_por_modulo")
+  aceptadaPorEstudiante Boolean? @map("aceptada_por_estudiante")
+
+  @@map("alternativa_ml")
+}
+
+model ClimaMensual {
+  id                 String   @id @default(uuid()) @db.Uuid
+  parcelaId          String   @map("parcela_id") @db.Uuid
+  parcela            Parcela  @relation(fields: [parcelaId], references: [id])
+  mes                Int      @db.SmallInt
+  et0MmDia           Float    @map("et0_mm_dia")
+  precipitacionMm    Float    @map("precipitacion_mm")
+  tempMediaC         Float?   @map("temp_media_c")
+  tempMaxC           Float?   @map("temp_max_c")
+  tempMinC           Float?   @map("temp_min_c")
+  humedadRelativaPct Float?   @map("humedad_relativa_pct")
+  vientoMs           Float?   @map("viento_ms")
+  radiacionMjM2Dia   Float?   @map("radiacion_mj_m2_dia")
+  fuente             String
+  resolucion         String?
+  obtenidoEn         DateTime @default(now()) @map("obtenido_en")
+
+  @@unique([parcelaId, mes])
+  @@map("clima_mensual")
+}
+
+enum OrigenSuelo {
+  satelital
+  campo
+}
+
+model Suelo {
+  id                    String      @id @default(uuid()) @db.Uuid
+  parcelaId             String      @map("parcela_id") @db.Uuid
+  parcela               Parcela     @relation(fields: [parcelaId], references: [id])
+  textura               String
+  capacidadCampoPct     Float       @map("capacidad_campo_pct")
+  puntoMarchitezPct     Float       @map("punto_marchitez_pct")
+  densidadAparente      Float?      @map("densidad_aparente")
+  infiltracionMmH       Float?      @map("infiltracion_mm_h")
+  profundidadEfectivaCm Float?      @map("profundidad_efectiva_cm")
+  origen                OrigenSuelo
+  arenaPct              Float?      @map("arena_pct")
+  limoPct               Float?      @map("limo_pct")
+  arcillaPct            Float?      @map("arcilla_pct")
+  ph                    Float?
+  fuente                String?
+  resolucion            String?
+  creadoEn              DateTime    @default(now()) @map("creado_en")
+
+  @@map("suelo")
+}
+
+enum OrdenTramo {
+  matriz
+  principal
+  lateral
+}
+
+model Tramo {
+  id                 String          @id @default(uuid()) @db.Uuid
+  redId              String          @map("red_id") @db.Uuid
+  red                Red             @relation(fields: [redId], references: [id])
+  nodoInicioId       String          @map("nodo_inicio_id") @db.Uuid
+  nodoInicio         Nodo            @relation("tramoInicio", fields: [nodoInicioId], references: [id])
+  nodoFinId          String          @map("nodo_fin_id") @db.Uuid
+  nodoFin            Nodo            @relation("tramoFin", fields: [nodoFinId], references: [id])
+  orden              OrdenTramo
+  tuberiaCatalogoId  String          @map("tuberia_catalogo_id") @db.Uuid
+  tuberiaCatalogo    TuberiaCatalogo @relation(fields: [tuberiaCatalogoId], references: [id])
+  longitudInclinadaM Float           @map("longitud_inclinada_m")
+  caudalLps          Float?          @map("caudal_lps")
+  velocidadMs        Float?          @map("velocidad_ms")
+  perdidaCargaM      Float?          @map("perdida_carga_m")
+  presionEntradaMca  Float?          @map("presion_entrada_mca")
+  presionSalidaMca   Float?          @map("presion_salida_mca")
+  cumpleClase        Boolean?        @map("cumple_clase")
+
+  @@map("tramo")
+}
+
+model Cabezal {
+  id                    String  @id @default(uuid()) @db.Uuid
+  redId                 String  @map("red_id") @db.Uuid
+  red                   Red     @relation(fields: [redId], references: [id])
+  tipoFiltro            String  @map("tipo_filtro")
+  perdidaFiltroM        Float   @map("perdida_filtro_m")
+  valvulas              Json
+  perdidaTotalM         Float   @map("perdida_total_m")
+  incluyeFertirrigacion Boolean @map("incluye_fertirrigacion")
+
+  @@map("cabezal")
+}
+
+enum TipoNodo {
+  fuente
+  cabezal
+  union
+  emisor
+  crp
+  vrp
+}
+
+model Nodo {
+  id            String   @id @default(uuid()) @db.Uuid
+  redId         String   @map("red_id") @db.Uuid
+  red           Red      @relation(fields: [redId], references: [id])
+  tipo          TipoNodo
+  lat           Float
+  lon           Float
+  cotaMsnm      Float    @map("cota_msnm")
+  presionMca    Float?   @map("presion_mca")
+  caudalLps     Float?   @map("caudal_lps")
+  tramosSalida  Tramo[]  @relation("tramoInicio")
+  tramosLlegada Tramo[]  @relation("tramoFin")
+
+  @@map("nodo")
+}
+
+model Presupuesto {
+  id         String               @id @default(uuid()) @db.Uuid
+  redId      String               @map("red_id") @db.Uuid
+  red        Red                  @relation(fields: [redId], references: [id])
+  moneda     String               @default("PEN")
+  total      Decimal              @db.Decimal(14, 2)
+  generadoEn DateTime             @default(now()) @map("generado_en")
+  partidas   PartidaPresupuesto[]
+
+  @@map("presupuesto")
+}
+
+enum TipoPartida {
+  tuberia
+  emisor
+  accesorio
+  obra
+}
+
+model PartidaPresupuesto {
+  id             String      @id @default(uuid()) @db.Uuid
+  presupuestoId  String      @map("presupuesto_id") @db.Uuid
+  presupuesto    Presupuesto @relation(fields: [presupuestoId], references: [id])
+  tipo           TipoPartida
+  descripcion    String
+  cantidad       Float
+  unidad         String
+  precioUnitario Decimal     @map("precio_unitario") @db.Decimal(12, 2)
+  subtotal       Decimal     @db.Decimal(14, 2)
+
+  @@map("partida_presupuesto")
+}
+
+/// Los precios con que se arma el presupuesto. Vale el último cargado: se reemplazan sin tocar el código (HU0027).
+model CatalogoPrecios {
+  id          String   @id @default(uuid()) @db.Uuid
+  version     String   @unique
+  provisional Boolean
+  fuente      String
+  contenido   Json
+  cargadoEn   DateTime @default(now()) @map("cargado_en")
+
+  @@map("catalogo_precios")
+}

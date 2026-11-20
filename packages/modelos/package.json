@@ -1,0 +1,26 @@
+{
+  "name": "@riego/modelos",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Modelos de ML ya exportados a ONNX y lo que los prepara y explica. El entrenamiento está en el repositorio crop-ml.",
+  "exports": {
+    ".": "./src/index.ts",
+    "./cultivos.onnx": "./cultivos.onnx",
+    "./cultivos.json": "./cultivos.json",
+    "./sustituto.onnx": "./sustituto.onnx",
+    "./sustituto.json": "./sustituto.json"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "tipos": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "@riego/calculo": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "24.19.1",
+    "onnxruntime-web": "1.30.0",
+    "vitest": "5.0.3"
+  }
+}
